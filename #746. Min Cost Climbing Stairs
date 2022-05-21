@@ -29,7 +29,7 @@ public:
             return cost[0];
         if(n==1)
             return cost[1];
-        if(dp[n]!=0)
+        if(dp[n]!=0)                     //重要的一步，削掉不必要的遞迴
             return dp[n];
         dp[n] = min(cost[n]+mincost(cost,n-1),cost[n]+mincost(cost,n-2));
         
