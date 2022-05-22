@@ -1,0 +1,38 @@
+class Solution {
+public:
+    int dp[100]; //紀錄走到第i階的 min cost
+    int minCostClimbingStairs(vector<int>& cost) {   
+        dp[0] = cost[0];                       //初始條件
+        dp[1] = cost[1];                       //初始條件
+        for(int i=2;i<cost.size();i++)          
+        {
+            dp[i] = min(cost[i]+dp[i-1],cost[i]+dp[i-2]);   //一次只能走1 2階，所以第i階的最小成本=第i階成本+min(上1階成本,上2階成本)
+        }
+        return min(dp[cost.size()-1],dp[cost.size()-2]);    //最後1階和倒數第2階都可以直接上頂，取min回傳
+    }
+};
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+class Solution {              //改良版
+public:
+    int dp[1000]; //紀錄 min cost
+    
+    int minCostClimbingStairs(vector<int>& cost) {
+        dp[0] = cost[0];
+        dp[1] = cost[1];
+        return min(mincost(cost,cost.size()-1),mincost(cost,cost.size()-2));
+    }
+    
+    int mincost(vector<int>& cost,int n)//回傳第n階的最小成本
+    {   
+        if(n==0)
+            return cost[0];
+        if(n==1)
+            return cost[1];
+        if(dp[n]!=0)                     //重要的一步，削掉不必要的遞迴
+            return dp[n];
+        dp[n] = min(cost[n]+mincost(cost,n-1),cost[n]+mincost(cost,n-2));
+        
+        return dp[n];
+    }
+};
