@@ -1,0 +1,24 @@
+class Solution {
+public:
+    vector<int> twoSum(vector<int>& nums, int target) {
+        unordered_map <int,int> mp;
+        vector<int> ans;
+        int sub;
+        for(int i=0;i<nums.size();i++)
+        {
+            sub = target-nums[i];
+            if(mp.find(sub) != mp.end()) //如果在map中有找到差值
+            {   
+                ans.push_back(mp[sub]);
+                ans.push_back(i);
+                return ans;
+            }
+    
+            mp[nums[i]] = i;   //如果在map中沒有匹配成功，則記錄下在nums中位置
+            
+        }
+        
+        
+        return ans;
+    }
+};
