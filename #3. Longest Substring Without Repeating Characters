@@ -1,0 +1,49 @@
+class Solution {
+public:
+    int count[1000];
+    int max_length=0;
+    int curr_length=0;
+    
+    int lengthOfLongestSubstring(string s) { //找最長不重複字母字串
+        
+        cout<<int('a');
+        cout<<s[1];
+        int start = 0; 
+        for(int j=0;j<s.size();j++)
+        {
+            
+            
+        for(int i=j;i<s.size();i++)             //以a為開頭  
+        {    
+           
+            count[int(s[i])]=count[int(s[i])]+1;  //出現次數+1
+            
+            if(count[int(s[i])]>1)            //如果以經出現過一次了
+            {
+                
+                if(curr_length>max_length)    //更新最大值
+                    max_length = curr_length;
+                curr_length = 1;              //從這個字母開始重算
+                memset(count,0,1000);
+                count[int(s[i])] = count[int(s[i])]+1;
+            }
+            else                             //一次都還沒出現過
+            {
+                curr_length = curr_length+1;
+                if(curr_length>max_length)    //更新最大值
+                    max_length = curr_length;
+            }
+            
+            
+        }
+        curr_length =0;
+        memset(count,0,1000);
+            
+            
+        }
+    
+        
+        
+        return max_length;
+    }
+};
