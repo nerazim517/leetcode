@@ -1,0 +1,69 @@
+class Solution {
+public:
+    bool isPalindrome(int x) {
+        
+        bool res = true;
+        
+        vector <int> vec;
+        
+        int n=0; //紀錄x位數
+        
+        
+        
+        if(x<0)
+            return false;
+        
+        while(x>0)
+        {   
+            vec.push_back(x%10);
+            x = x/10;
+            n = n+1;
+        }
+        
+        for(int n=vec.size()-1;n>=0;n--)
+        {
+            cout<<vec[n];    
+        }
+        
+        
+        
+        int half = n/2;
+        
+        if(vec.size()==0)
+            return true;
+        
+        int z = 0;
+        
+        cout<<"half:"<<half<<endl;
+        
+        cout<<"end:"<<vec.size()-1<<endl;
+        
+        if(vec.size()%2!=0)
+        {
+            for(int n=half;n<=vec.size()-1;n++)//奇數
+            {
+                if(vec[half-z]!=vec[half+z])
+                    res = false;
+                z =z +1;
+            }
+    
+        }
+
+        if(vec.size()%2==0)
+        {
+            int zz = 0;
+        
+            for(int n=half;n<=vec.size()-1;n++)//偶數
+            {   
+            
+                if(vec[half-1-zz]!=vec[half+zz])
+                    res = false;
+                zz =zz +1;
+            }
+            
+        }
+        
+        
+        return res;
+    }
+};
