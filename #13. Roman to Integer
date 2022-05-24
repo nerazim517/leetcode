@@ -1,0 +1,119 @@
+class Solution {
+public:
+    int romanToInt(string s) {
+        
+        int sum =0;
+        
+        int number[13] = {1000,900,500,400,100,90,50,40,10,9,5,4,1};
+        
+        string charc[13] = {"M","CM","D","CD","C","XC","L","XL","X","IX","V","IV","I"};
+        
+        
+        for(int i =0;i<s.size();i++)
+        {      
+            cout<<i;
+            int flag = 0;
+            
+            
+            if(s[i] == 'M')              //M
+            {
+                sum = sum + 1000;
+                cout<<"M";
+            }
+            
+            if(s[i] == 'C')
+            { 
+                if(s[i+1] == 'M')        //CM
+                {
+                    sum = sum + 900;
+                    
+                    flag = 1;
+                    cout<<"CM";
+                }
+                else if(s[i+1] == 'D')       //CD
+                {
+                    sum = sum + 400;
+                    
+                    flag = 1;
+                    cout<<"CD";
+                }
+                else                            //C
+                {
+                    sum = sum + 100;
+                    cout<<"C";
+                }
+                
+            }
+            
+            if(s[i] == 'D')                    //D
+            {
+                
+                sum = sum + 500;
+                cout<<"D";
+            }
+            
+            if(s[i] == 'X')        
+            {
+                if(s[i+1] == 'C')         //XC
+                {
+                    sum = sum + 90;
+                    flag = 1;
+                    cout<<"XC";
+                }
+                else if(s[i+1] == 'L')       //XL
+                {
+                    sum = sum + 40;
+                    flag = 1;
+                    cout<<"XL";
+                }
+                else                         //X
+                {
+                    sum = sum + 10;
+                    cout<<"X";
+                }
+                
+            }
+            
+            if(s[i] == 'L')
+            {
+                sum = sum + 50;       //L
+                cout<<"L";
+            }
+            
+            if(s[i] == 'I')        
+            {
+                if(s[i+1] == 'V')         //IV
+                {
+                    sum = sum + 4;
+                    flag = 1;
+                    cout<<"IV";
+                }
+                else if(s[i+1] == 'X')       //IX
+                {
+                    sum = sum + 9;
+                    flag = 1;
+                    cout<<"IX";
+                }
+                else                         //I
+                {
+                    sum = sum + 1;
+                    cout<<"I";
+                }
+                
+            }
+            if(s[i] == 'V')
+            {
+                sum = sum + 5;     //V
+                cout<<"V";
+            }
+            
+            if(flag==1)
+                i = i+1;
+            
+            cout<<endl<<sum<<","<<i<<endl;
+        }
+        
+        
+        return sum;
+    }
+};
