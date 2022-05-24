@@ -1,0 +1,27 @@
+class Solution {   //n^2太慢，設兩個指標從左右兩側掃只要O(n)
+public:
+    int maxArea(vector<int>& height) {
+        
+        int max = 0;
+        int size = height.size();
+        int i =0;
+        int j = size -1;
+    
+        while(size>0)
+        {
+            if(min(height[i],height[j])*(j-i)>max)  //判斷面積
+                max = min(height[i],height[j])*(j-i);
+            
+            if(height[i]>height[j])       //兩側中，小的那個往中間移動
+                j = j-1;
+            else
+                i = i+1;
+            
+            size = size -1;
+        }
+        
+        return max;
+        
+        
+    }
+};
