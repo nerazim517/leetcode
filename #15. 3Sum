@@ -1,0 +1,76 @@
+class Solution {    //找出3個和為0的子集合                         !!!!!!!!!!!!!!time exceed
+public:
+    vector<vector<int>> threeSum(vector<int>& nums) {
+        
+        
+        vector<vector<int>> ans2;
+        vector<int> appear2;
+        vector<int> appear3;
+        if(nums.size()<3)
+            {
+                return ans2;
+            }
+                
+        for(int i =0;i<nums.size();i++)
+        {   
+           
+            appear3.push_back(nums[i]);
+            
+            for(int u=0;u<appear3.size();u++)
+            {
+                if(nums[i]==appear3[u])
+                {   
+                    continue;  
+                }   
+            }
+            
+            for(int j =i+1;j<nums.size();j++)
+            {
+                int flag =0;
+                
+                for(int o =0;o<ans2.size();o++)
+                    {
+                        if(nums[i]==ans2[o][0])
+                            if((nums[j]==ans2[o][1])||(nums[j]==ans2[o][2]))
+                            {
+                                flag = 1;
+                            }
+                        
+                        if(nums[i]==ans2[o][1])    
+                            if((nums[j]==ans2[o][0])||(nums[j]==ans2[o][2]))   
+                            {
+                                flag = 1;
+                            }
+                            
+                        if(nums[i]==ans2[o][2])
+                            if((nums[j]==ans2[o][1])||(nums[j]==ans2[o][0]))
+                            {
+                                flag = 1;
+                            }
+                    }  
+                
+                if(flag ==1)
+                    continue ;
+                
+                for(int z=j+1;z<nums.size();z++)
+                {   
+                    vector<int> ans1;
+                    
+                    if(((nums[i]+nums[j]+nums[z])==0))
+                    {
+                        ans1.push_back(nums[i]);
+                        ans1.push_back(nums[j]);
+                        ans1.push_back(nums[z]);
+                        ans2.push_back(ans1);
+                        break;
+                    }
+                    
+                }                  
+            }
+            
+            appear2.push_back(nums[i]);
+        }
+        
+        return ans2; 
+    }
+};
