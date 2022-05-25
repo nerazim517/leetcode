@@ -1,0 +1,80 @@
+class Solution {                   //很吃數學能力，程式碼複習時應該不好讀
+public:
+    vector<string> letterCombinations(string digits) {
+        
+        vector<string> vec;
+        
+        char chr[8][4] = {{'a','b','c'},{'d','e','f'},{'g','h','i'},{'j','k','l'},{'m','n','o'},{'p','q','r','s'},{'t','u','v'},{'w','x','y','z'}};
+        
+        
+        unordered_map <int,string> mp;
+        
+        int now = 1;
+        
+        for(int i=0;i<digits.size();i++) //每個字元掃一次
+        {   
+            
+            int number = 3;
+            int flag =1;
+            
+            if((digits[i]=='7')||(digits[i]=='9'))
+            {
+                number = 4;
+                flag = 2;
+            }
+            now = now*number; //用來判斷現在要有幾個元素
+            
+            int dual = now;
+            int dual2 = number-1; //代替變數
+            
+           
+            
+            if(flag==1)   //如果是234568
+            {
+                for(int j = now-1; j>=(now/number)*2;j--)                  //分成三等份複製，此為後1/3
+                {
+                    mp[j] = mp[j-(now/number)*2] + chr [digits[i]-'2'] [2];   //加上要加的字元，字元記錄在chr中
+                                                                                //(digits[i]-'2') = 0-7，用來取矩陣chr 
+                }
+                for(int j = (now/number)*2-1; j>=now/number;j--)         //此為中1/3
+                {
+                    mp[j] = mp[j-now/number] + chr [digits[i]-'2'] [1];
+                }
+                for(int j = now/number-1; j>=0;j--)                     //此為前1/3
+                {
+                    mp[j] = mp[j] + chr [digits[i]-'2'] [0];
+                }
+                
+            }
+            if(flag==2)  //如果是79
+            {
+                for(int j = now-1; j>=(now/number)*3;j--)                //分成四等份複製，此為後1/4
+                {
+                    mp[j] = mp[j-(now/number)*3] + chr [digits[i]-'2'] [3];
+                }
+                
+                for(int j = (now/number)*3-1; j>=(now/number)*2;j--)               //中後1/4
+                {
+                    mp[j] = mp[j-(now/number)*2] + chr [digits[i]-'2'] [2];
+                }
+                
+                for(int j = (now/number)*2-1; j>=now/number;j--)               //中前1/4
+                {
+                    mp[j] = mp[j-now/number] + chr [digits[i]-'2'] [1];
+                }
+                
+                for(int j = now/number-1; j>=0;j--)                           //前1/4
+                {
+                    mp[j] = mp[j] + chr [digits[i]-'2'] [0];
+                }
+            }
+        }
+        
+        
+        for(int i =0;i<mp.size();i++)   //把map紀錄的字串傳給vector
+            vec.push_back(mp[i]);
+        
+        
+        return vec;   
+    }
+};
