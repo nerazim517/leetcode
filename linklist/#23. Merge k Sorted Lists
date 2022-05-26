@@ -8,7 +8,7 @@
  *     ListNode(int x, ListNode *next) : val(x), next(next) {}
  * };
  */
-class Solution {
+class Solution {                                 //第1次解出的hard，感覺這題沒有hard的水準，滿簡單的
 public:
     ListNode* mergeKLists(vector<ListNode*>& lists) {
         
