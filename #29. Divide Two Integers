@@ -1,0 +1,116 @@
+class Solution {  //很吃數學
+public:
+    int divide(int dividend, int divisor) {
+        
+        int count=0;
+        
+        if(dividend ==0)
+            return 0;
+        
+        
+        if(divisor==0)
+            return -1;
+        
+        if(divisor==dividend)
+            return 1;
+        
+        if(divisor==-1)
+        {
+            if(dividend<0)
+            {
+                if(dividend+pow(2,31)<=0)
+                {
+                    
+                    return pow(2,31)-1;
+                }
+                else
+                    return -dividend;
+            }
+            else if(dividend>0)
+            {
+                if(dividend-pow(2,31)>=0)
+                {
+                    
+                    return -pow(2,31);
+                }
+                else
+                    return -dividend;
+                
+            }
+        }
+        else if(divisor==1)
+        {
+            if(dividend<0)
+            {
+                if(dividend+pow(2,31)<=0)
+                {
+                    
+                    return -pow(2,31);
+                }
+                else
+                    return dividend;
+                
+            }
+            else if(dividend>0)
+            {
+                if(dividend-pow(2,31)>=0)
+                {
+                    
+                    return pow(2,31)-1;
+                }
+                else
+                    return dividend;
+                
+            }   
+        }   
+        
+        if(dividend>0)  //如果被除數正
+        {
+            if(divisor>0)//如果除數正
+            {
+                while(dividend- divisor>=0)
+                {
+                    dividend = dividend - divisor;
+                    count = count+1;
+                }
+                cout<<count;
+            }
+            else if(divisor<0)//如果除數負
+            {
+                while(dividend+divisor>=0)
+                {
+                    dividend = dividend + divisor;
+                    count = count-1;
+                }
+                
+            }
+            
+            
+        }
+        else if(dividend<0) //如果被除數負
+        {
+            if(divisor>0)//如果除數正
+            {
+                while(dividend+divisor<=0)
+                {
+                    dividend = dividend + divisor;
+                    count = count-1;
+                }
+            }   
+            else if(divisor<0)//如果除數負
+            {
+                while(dividend-divisor<=0)
+                {
+                    dividend = dividend - divisor;
+                    count = count+1;
+                }
+                
+            }
+
+        }
+        
+        
+        return count;
+        
+    }
+};
