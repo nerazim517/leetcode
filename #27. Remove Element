@@ -1,0 +1,21 @@
+class Solution { //把nums中的val移除
+public:
+    int removeElement(vector<int>& nums, int val) {
+        
+        int count = 0;
+        int size = nums.size();
+        
+        for(auto it=nums.begin();it!=nums.end();it++)
+        {
+            if(*it==val)
+            {
+                nums.erase(it);
+                it--;
+                count++;
+            }
+        }
+         
+        
+        return size-count;
+    }
+};
