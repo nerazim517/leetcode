@@ -1,0 +1,34 @@
+class Solution { //回傳needle在haystack中出現的位置
+public:
+    int strStr(string haystack, string needle) {
+        
+        if(haystack==needle)
+            return 0;
+        
+        if(haystack.size()<needle.size())
+            return -1;
+        
+        for(int n =0;n<haystack.size()-needle.size()+1;n++)
+        {
+            if(haystack[n]==needle[0])
+            {   
+                int flag =1;
+                
+                for(int j=1;j<needle.size();j++)
+                {
+                    if(needle[j]!=haystack[n+j])
+                        flag =0;
+                }
+
+                if(flag==1)
+                    return n;
+                
+            }
+            cout<<n;
+            
+        }
+        
+        
+        return -1;
+    }
+};
