@@ -1,0 +1,50 @@
+class Solution {
+public:
+    void merge(vector<int>& nums1, int m, vector<int>& nums2, int n) {
+       
+        int countm =0;
+        int countn =0;  
+        int countt =0;
+        int index = 0;
+        while(((index<nums1.size())&&(nums2.size()!=0))&&(countn<n))
+        {
+            if(nums1[countm]>nums2[countn])
+            {   
+                cout<<nums2[countn]<<'1'<<index<<endl;
+                nums1.insert(nums1.begin()+index,nums2[countn]);
+                nums1.pop_back();
+                index = index +1;
+                countn = countn +1;
+                countm = countm +1;
+            }
+            else if(countt>=m)
+            {
+                cout<<nums2[countn]<<'2'<<index<<endl;
+                nums1.insert(nums1.begin()+index,nums2[countn]);
+                nums1.pop_back();
+                index = index +1;
+                countn = countn +1;
+                countm = countm +1;
+            }
+            else if((countt>=m)&&(nums1[countn]==0))
+            {
+                nums1.insert(nums1.begin()+index,nums2[countn]);
+                nums1.pop_back();
+                index = index +1;
+                countn = countn +1;
+                countm = countm +1;
+                countt = countt +1;
+            }
+            else
+            {   
+                cout<<nums1[countm]<<'3'<<index<<endl;
+                countm = countm +1;
+                index = index +1;
+                countt = countt +1;
+            }
+            
+        }
+        
+            
+    }
+};
