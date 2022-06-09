@@ -1,0 +1,43 @@
+class Solution {
+public:
+    unordered_map <int,string> anss;
+    
+    string countAndSay(int n) {  
+        
+        string str;
+        if(n==1)
+            return "1";
+        else if(anss[n]!="")
+        {
+            return anss[n];
+        }
+        else
+            str = convert(countAndSay(n-1),n);
+            
+        return str;
+    }
+    
+    string convert(string str,int n) //轉換
+    {       
+        string ans = "";
+        int count = 1;
+      
+        for(int i =0;i<str.size();i++)
+        {   
+            if(str[i]!=str[i+1])
+            {   
+                ans = ans + char(count+'0');
+                ans = ans + str[i];
+                count = 1;
+            }
+            else
+            {
+                count = count +1;
+            }    
+        }
+        anss[n] = ans;
+        
+        return ans; 
+    }
+    
+};
