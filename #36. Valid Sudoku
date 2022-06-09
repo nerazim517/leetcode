@@ -1,0 +1,120 @@
+class Solution {
+public:
+    bool isValidSudoku(vector<vector<char>>& board) {
+        bool res = checkx(board);
+        cout<<res;
+        
+        res = checky(board);
+        cout<<res;
+        
+        res = check9(board);
+        cout<<res;
+        
+        res = checkx(board)&&checky(board)&&check9(board);
+        
+        return res;
+    }
+    
+    
+    bool checkx(vector<vector<char>>& board)
+    {   
+        bool res = true;
+        
+        for(int i =0;i<board.size();i++)//每行檢查一次
+        {   
+            unordered_map <int,int> exist;//檢查元素是否出現過
+            for(int n =0;n<board.size();n++)
+            {   
+                if(((exist[board[i][n]]!=0))&&(board[i][n]!='.'))
+                {   
+                    cout<<n<<i;
+                    return false;      
+                }
+                else
+                    exist[board[i][n]] = 1;
+            }
+        }
+
+        return res;    
+    }
+    
+    
+    bool checky(vector<vector<char>>& board)
+    {
+        bool res = true;
+        for(int i=0;i<board.size();i++)
+        {
+            unordered_map <int,int> exist;//檢查元素是否出現過
+            for(int j=0;j<board.size();j++)
+            {
+                if((exist[board[j][i]]!=0)&&(board[j][i]!='.'))
+                    return false;
+                else
+                {
+                    exist[board[j][i]] = 1;
+                }
+                
+            }
+            
+        }
+        
+        return res; 
+        
+    }
+    bool check9(vector<vector<char>>& board)
+    {
+        bool res = true;
+        
+        for(int i=0;i<board.size();i++)//檢查每一個九宮格
+        {
+            unordered_map <int,int> exist;
+            int x = 0;
+            if((i>=3)&&(i<=5))
+                x = x+3;
+            else if((i>=6)&&(i<=8))
+                x = x+6;
+            
+            for(int n=0;n<board.size();n++)
+            {   
+                int u = x;
+                int p = n;
+                if((i==1)||(i==4)||(i==7))
+                {
+                    p = p+3;
+                }
+                else if((i==2)||(i==5)||(i==8))
+                {
+                    p = p+6;
+                }
+                
+                
+                if((n>2)&&(n<6)) //第二排
+                {
+                    u = u+1;
+                    p = p-3;
+                }
+                else if((n>5)&&(n<9)) //第三排
+                {
+                    u = u+2;
+                    p = p-6;
+                }
+                
+                if((exist[board[u][p]]!=0)&&((board[u][p])!='.'))
+                {
+                    return false;
+                }
+                else
+                {
+                    exist[board[u][p]] = 1;
+                }
+                cout<<u<<p<<endl;
+            }
+        }
+        
+        return res; 
+        
+    }
+    
+    
+    
+};
