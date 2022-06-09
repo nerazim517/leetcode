@@ -1,15 +1,7 @@
 class Solution {
 public:
     bool isValidSudoku(vector<vector<char>>& board) {
-        bool res = checkx(board);
-        cout<<res;
-        
-        res = checky(board);
-        cout<<res;
-        
-        res = check9(board);
-        cout<<res;
-        
+        bool res;
         res = checkx(board)&&checky(board)&&check9(board);
         
         return res;
@@ -114,7 +106,5 @@ public:
         return res; 
         
     }
-    
-    
     
 };
