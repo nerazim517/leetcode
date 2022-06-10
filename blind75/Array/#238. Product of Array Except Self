@@ -1,0 +1,54 @@
+class Solution {
+public:
+    vector<int> productExceptSelf(vector<int>& nums) {
+        vector <int> vec;
+        int product = 1;
+        int zeroaxis;
+        int countzero = 0;
+        for(int i=0;i<nums.size();i++)
+        { 
+            product = product*nums[i];
+            if(nums[i]==0)
+            {
+                countzero = countzero+1;
+                zeroaxis = i;
+            }         
+        }
+        
+        if(countzero==1)//特例 只有1個0時
+        {   
+            int val = 1;
+            for(int i=0;i<zeroaxis;i++)
+            {
+                val = val*nums[i];
+                vec.push_back(0);
+            }
+            
+            for(int i=zeroaxis+1;i<nums.size();i++)
+            {
+                val = val*nums[i];
+            }
+            vec.push_back(val);
+            for(int i=zeroaxis+1;i<nums.size();i++)
+            {
+                vec.push_back(0);
+            }
+            return vec;
+        }
+        
+        for(int i=0;i<nums.size();i++)
+        {   
+            if(nums[i]==0)
+                vec.push_back(0);
+            else
+            {
+                int ans = product/nums[i];
+                vec.push_back(ans); 
+                
+            }     
+        }
+        
+        
+        return vec;    
+    }
+};
