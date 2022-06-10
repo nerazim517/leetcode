@@ -1,0 +1,16 @@
+class Solution {  //一直相加，前面負的不要，後面比大的
+public:
+    int maxSubArray(vector<int>& nums) {
+        int sum = 0;
+        int ans = nums[0];
+        for(int i=0;i<nums.size();i++)
+        {
+            sum = sum+nums[i];
+            ans = max(ans,sum);
+            sum = max(sum,0);
+            
+        }
+        return ans;
+    }
+};
+
