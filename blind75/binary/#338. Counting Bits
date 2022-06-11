@@ -1,0 +1,27 @@
+class Solution {
+public:
+    vector<int> countBits(int n) {
+        vector <int> vec;
+        for(int a=0;a<=n;a++)
+        {
+            vec.push_back(number(a));
+        }
+        
+        return vec;
+        
+    }
+    
+    int number(int a)
+    {   
+        int count =0;
+        while(a!=0)
+        {
+            if(a%2!=0)
+                count++;
+            
+            a = a>>1;
+        }
+        
+        return count;
+    }
+};
