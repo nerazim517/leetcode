@@ -1,0 +1,33 @@
+class Solution {
+public:
+    void setZeroes(vector<vector<int>>& matrix) {
+        vector <int> vecx,vecy;
+        
+        for(int i=0;i<matrix.size();i++)
+        {
+            for(int j=0;j<matrix[0].size();j++)
+            {
+                if(matrix[i][j]==0)
+                {
+                    vecx.push_back(i);
+                    vecy.push_back(j);
+                }
+
+            }
+            
+        }
+        for(int n=0;n<vecx.size();n++)
+            for(int j=0;j<matrix[0].size();j++)
+            {
+                matrix[vecx[n]][j] = 0;  
+            }
+        
+        for(int n=0;n<vecy.size();n++)
+            for(int j=0;j<matrix.size();j++)
+            {
+                
+                matrix[j][vecy[n]] = 0;
+            }
+  
+    }
+};
