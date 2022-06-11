@@ -1,0 +1,31 @@
+class Solution {
+public:
+    uint32_t reverseBits(uint32_t n) {
+        vector <int> vec;
+        int count = 32;
+        int ans =0;
+        while(count>0)
+        {
+            if(n%2==0)
+                vec.push_back(0);
+            else
+                vec.push_back(1);
+            
+            n = n>>1;
+            
+            count--;
+        }
+        count = 31;
+        long int q = 1;
+        
+        while(count>=0)
+        {
+            
+            ans = ans + vec[count]*q;
+            q = q*2; 
+            count--;
+        }
+        
+        return ans;
+    }
+};
