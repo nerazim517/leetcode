@@ -1,0 +1,71 @@
+class Solution {
+public:
+    bool wordBreak(string s, vector<string>& wordDict) {
+        
+        unordered_map <int,int> mp; //<可以組成的長度,true false>
+        
+        bool res = false;
+        for(int z=0;z<wordDict.size();z++) //每個字掃一次
+                    {   
+                        
+                        bool qqq = true;
+                        for(int y=0;y<wordDict[z].size();y++) //每個字元掃一次
+                        {   
+                            
+                            if(wordDict[z][y]!=s[y]) 
+                            {
+                                qqq = false;
+                                break;
+                            }
+
+                        }
+                        if(qqq == true) //這個字可以再組成別的
+                        {
+                            mp[wordDict[z].size()] = 1;                     
+                        }
+                        
+                    }
+        
+        for(int i=0;i<s.size();i++)//至多掃s長度次
+        {
+            
+            if(mp[s.size()]==1)
+                return true;
+            for(int j=0;j<mp.size();j++) //開始組成，掃mp
+            {
+                if(mp[j]!=0)//如果這個可以組成
+                {
+                    for(int z=0;z<wordDict.size();z++) //每個字掃一次
+                    {   
+                        bool qqq = true;
+                        for(int y=0;y<wordDict[z].size();y++) //每個字元掃一次
+                        {
+                            if(wordDict[z][y]!=s[j+y]) 
+                            {
+                                qqq = false;
+                                break;
+                            }
+
+                        }
+                        if(qqq == true) //這個字可以再組成別的
+                        {
+                            mp[j+wordDict[z].size()] = 1;                     
+                        }
+                        
+                    }
+          
+                }
+                    
+                    
+            }
+            
+            
+            
+        }
+        
+        if(mp[s.size()]==1)
+            res = true;
+        
+        return res;
+    }
+};
