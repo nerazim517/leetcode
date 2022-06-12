@@ -1,0 +1,25 @@
+class Solution { //結尾是用num[0],nums[1],,,,,一路排下去，最後找出最大
+public:
+    int lengthOfLIS(vector<int>& nums) {
+        vector <int> vec; //用來存長度
+        vec.push_back(1);
+        for(int i=1;i<nums.size();i++) //每個字掃一次
+        {      
+            int maxx = 1;//紀錄以這個數字結尾的最長長度
+            for(int j=0;j<vec.size();j++) //每個之前出現過的數字掃一次
+            {
+                if(nums[i]>nums[j])  //如果這個字大於之前出現過的字
+                    maxx = max(vec[j]+1,maxx); //更新
+            }
+            
+            vec.push_back(maxx);
+            
+        }
+        
+        sort(vec.begin(),vec.end()); //排序用來找出最大值
+        
+        return vec[vec.size()-1];
+        
+        
+    }
+};
