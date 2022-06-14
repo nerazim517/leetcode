@@ -1,0 +1,54 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {  //map也可以存指標，單向鏈結串列不能產生迴圈，會報錯，在配置前，要檢查next，最好設成null
+public:
+    void reorderList(ListNode* head) {
+        ListNode *start = head;
+        unordered_map <int ,ListNode *> mp;
+        int count = 0;
+        while(start!=NULL)
+        {
+            mp[count] = start;
+            start = start->next;
+            count++;
+        }
+        
+        for(int i=0;i<mp.size();i++)
+            mp[i]->next=NULL;
+        
+        int l = 1;
+        int r = mp.size()-1;
+        
+        for(int i=0;i<mp.size();i++)
+            mp[i]->next=NULL;
+        ListNode *copyy = head;
+        
+        while(l<=r)
+        {   
+            
+            ListNode *copy = copyy;
+            
+            copy->next = mp[r];
+            r--;
+            if(r<l)
+            {
+            
+                break;
+            }
+            
+            cout<<"123";
+            copy->next->next = mp[l];
+            copyy = mp[l];
+            l++;
+        }
+ 
+    }
+};
