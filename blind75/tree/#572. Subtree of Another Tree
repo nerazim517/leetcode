@@ -1,0 +1,42 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    bool isSubtree(TreeNode* root, TreeNode* subRoot) { //用ldr追蹤每一個節點
+        if(subRoot==NULL)
+            return true;
+        else if(root==NULL)
+            return false;
+        if(issametree(root,subRoot))
+            return true;
+
+        return (isSubtree(root->left,subRoot)||isSubtree(root->right,subRoot)); //只要其中一個節點符合就可以
+
+    }
+    bool issametree(TreeNode* q,TreeNode* p)
+    {
+        if((q==NULL)&&(p==NULL))
+        {
+            return true;
+        }
+        else if((q==NULL)||(p==NULL))
+        {
+            return false;
+        }
+        else if(q->val==p->val)
+            if(issametree(q->left,p->left))
+                if(issametree(q->right,p->right))
+                    return true;
+        
+        return false;
+    }
+};
