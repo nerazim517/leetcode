@@ -1,0 +1,21 @@
+class Solution {
+public:
+    bool hasCycle(ListNode *head) {
+        if(head==NULL)
+            return false;
+        unordered_map <ListNode*,int> mp;
+        ListNode *start = head;
+        while(start->next!=NULL)
+        {
+            if(mp[start]!=0)
+            {
+                return true;     
+            }
+            else
+                mp[start]=1;
+            start = start->next;
+        }
+        
+        return false;
+    }
+};
