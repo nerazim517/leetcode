@@ -1,0 +1,46 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    bool isValidBST(TreeNode* root) {
+        
+        vector<int> vec = LDR(root);
+        
+        for(int i=0;i<vec.size()-1;i++)
+        {
+            if(vec[i]>=vec[i+1])
+                return false;
+        }
+        
+        return true;
+    }
+    
+    vector<int> LDR(TreeNode* root)//傳回存ldr結果的vector
+    {
+        vector <int> ans;
+        
+        if(root==NULL)
+        {   
+            return ans;
+        }
+        vector <int> leftt = LDR(root->left);
+        for(int lef:leftt)
+            ans.push_back(lef);
+        ans.push_back(root->val);
+        vector <int> rightt = LDR(root->right);
+        for(int righ:rightt)
+            ans.push_back(righ);
+        
+        return ans;
+    }
+    
+};
