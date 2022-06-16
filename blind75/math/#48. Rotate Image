@@ -1,0 +1,16 @@
+class Solution {
+public:
+    void rotate(vector<vector<int>>& matrix) {
+        vector<vector<int>> ans;//先複製到這裡
+        for(int i=0;i<matrix.size();i++)//每一行都掃一次
+        {
+            vector <int> now;
+            for(int j=matrix.size()-1;j>=0;j--)
+            {
+                now.push_back(matrix[j][i]);
+            }
+            ans.push_back(now);
+        }
+        matrix = ans;
+    }
+};
