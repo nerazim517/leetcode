@@ -1,0 +1,62 @@
+class Solution { //抓上下左右用來當條件
+public:
+    vector<int> spiralOrder(vector<vector<int>>& matrix) {
+        int count = 0;
+        int left = 0;
+        int right = matrix[0].size()-1;
+        int top = 0;
+        int down = matrix.size()-1;
+        vector<int> ans;
+        while(count<matrix.size()*matrix[0].size())
+        {
+            for(int i=left;i<=right;i++)
+            {   
+                ans.push_back(matrix[top][i]);
+                cout<<matrix[top][i];
+                count++;
+                if(count==matrix.size()*matrix[0].size())
+                    break;
+            }
+            if(count==matrix.size()*matrix[0].size())
+                    break;
+            
+            for(int i=top+1;i<=down;i++)
+            {   
+                ans.push_back(matrix[i][right]);
+                cout<<matrix[i][right];
+                count++;
+                if(count==matrix.size()*matrix[0].size())
+                    break;
+            }
+            if(count==matrix.size()*matrix[0].size())
+                    break;
+            for(int i=right-1;i>=left;i--)
+            {   
+                ans.push_back(matrix[down][i]);
+                cout<<matrix[down][i];
+                count++;
+                if(count==matrix.size()*matrix[0].size())
+                    break;
+            }
+            if(count==matrix.size()*matrix[0].size())
+                    break;
+            top++;
+            for(int i=down-1;i>=top;i--)
+            {   
+                ans.push_back(matrix[i][left]);
+                cout<<matrix[i][left];
+                count++;
+                if(count==matrix.size()*matrix[0].size())
+                    break;
+            }
+            
+            if(count==matrix.size()*matrix[0].size())
+                    break;
+            down--;
+            left++;
+            right--;
+        }
+        
+        return ans;
+    }
+};
