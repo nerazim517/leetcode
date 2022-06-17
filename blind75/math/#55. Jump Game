@@ -1,0 +1,17 @@
+class Solution {
+public:
+    bool canJump(vector<int>& nums) {  //由後面往前面推，後n格如果值>=n，代表可以走到，就更新count值為0，以此點為基準點往前找
+        int count = 0;
+        
+        for(int i = nums.size()-2;i>=0;i--)
+        {
+            count++;
+            if(nums[i]>=count)
+                count = 0;    
+        }
+        if(count ==0)
+            return true;
+        else
+            return false;
+    }
+};
