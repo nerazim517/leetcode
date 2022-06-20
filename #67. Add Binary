@@ -1,0 +1,76 @@
+class Solution {
+public:
+    string addBinary(string a, string b) {
+        unordered_map <int,int> mpa;
+        unordered_map <int,int> mpb;
+        string ans = "";
+        int u=0;
+        
+        for(int i = a.size()-1;i>=0;i--)
+            mpa[u++] = a[i]-'0';
+        
+        int z=0;
+        
+        for(int i = b.size()-1;i>=0;i--)
+            mpb[z++] = b[i]-'0';
+        
+        if(u>z)//a長
+        {   
+            for(int i=0;i<mpb.size();i++)
+            {
+                mpa[i]+=mpb[i];
+            }
+            
+            for(int i=0;i<mpa.size();i++)
+            {
+                if(mpa[i]==3)
+                {
+                    mpa[i] = 1;
+                    mpa[i+1] +=1;
+                }
+                else if(mpa[i]==2)
+                {
+                    mpa[i] = 0;
+                    mpa[i+1] +=1;    
+                }
+            }
+            for(int i=mpa.size()-1;i>=0;i--)
+            {
+                if(mpa[i]==0)
+                    ans+='0';
+                else
+                    ans+='1';
+            }
+            return ans;
+        }
+        else//b長
+        {
+            for(int i=0;i<mpa.size();i++)
+            {
+                mpb[i]+=mpa[i];
+            }
+            for(int i=0;i<mpb.size();i++)
+            {
+                if(mpb[i]==3)
+                {
+                    mpb[i] = 1;
+                    mpb[i+1] +=1;
+                }
+                else if(mpb[i]==2)
+                {
+                    mpb[i] = 0;
+                    mpb[i+1] +=1;    
+                }
+            }
+            for(int i=mpb.size()-1;i>=0;i--)
+            {
+                if(mpb[i]==0)
+                    ans+='0';
+                else
+                    ans+='1';
+            }
+            return ans;
+        }
+        return "";
+    }
+};
