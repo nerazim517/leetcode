@@ -1,0 +1,32 @@
+class Solution {
+public:
+    vector<int> plusOne(vector<int>& digits) {
+        vector<int>ans;
+        unordered_map <int,int> mp;
+        int u =0;
+        
+        for(int i=digits.size()-1;i>=0;i--)
+        {
+            mp[u++] = digits[i];
+        }
+        
+        mp[0]++;
+        
+        for(int i=0;i<mp.size();i++)
+        {
+            if(mp[i]==10)
+            {
+                mp[i] = 0;
+                mp[i+1] ++;
+            }
+            
+       }
+        
+       for(int i=mp.size()-1;i>=0;i--)
+       {
+           ans.push_back(mp[i]);        
+       }
+        
+        return ans;
+    }
+};
