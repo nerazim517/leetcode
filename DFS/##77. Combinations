@@ -1,0 +1,25 @@
+class Solution { //DFS
+public:
+    vector<vector<int>> ans;
+    vector<int> vec;
+    vector<vector<int>> combine(int n, int k) {
+        dfs(0,n,k,1);
+        return ans;
+    }
+    
+    void dfs(int count,int n,int k,int index)
+    {   
+        if(count==k)
+        {
+            ans.push_back(vec);
+            return;
+        }
+        for(int i=index;i<=n;i++)
+        {   
+        
+            vec.push_back(i);
+            dfs(count+1,n,k,i+1);
+            vec.pop_back();
+        }
+    }
+};
