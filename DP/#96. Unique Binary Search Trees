@@ -1,0 +1,22 @@
+class Solution { //dp[i]紀錄有i個點時有多少種不同bst
+public:
+    int numTrees(int n) {
+        unordered_map<int,int> dp;
+        dp[0] = 1;
+        dp[1] = 1;
+        for(int i =2;i<=n;i++)
+        {   
+            int remain = i-1;
+            int z = 0;
+            int sum =0;
+            for(int j = remain;j>=0;j--)
+            {
+                sum += dp[j]*dp[z++];
+            }
+            dp[i] = sum;
+        }
+        
+        
+        return dp[n];
+    }
+};
