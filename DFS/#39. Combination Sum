@@ -1,0 +1,35 @@
+class Solution {//怎麼去掉重複的run?，只用越來越大(>=)數字?->可以
+public:
+    vector<vector<int>> ans;
+    vector<int> vec;
+    
+    vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
+        sort(candidates.begin(),candidates.end());
+        dfs(target,candidates,0);
+        
+        return ans;
+    }
+    void dfs(int remain,vector<int>& nums,int index) 
+    {
+        if(remain == 0)
+        {   
+            
+            for(int i=0;i<ans.size();i++)
+                if(ans[i]==vec)
+                    return;
+            ans.push_back(vec);
+            return;
+        }
+        for(int i=index;i<nums.size();i++)
+        {
+            if(nums[i]<=remain)
+            {
+                vec.push_back(nums[i]);
+                dfs(remain-nums[i],nums,i);
+                vec.pop_back();
+            }
+            
+        }
+        return;
+    }
+};
