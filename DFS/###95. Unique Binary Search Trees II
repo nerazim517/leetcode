@@ -1,0 +1,47 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    vector<TreeNode*> generateTrees(int n) {   //vector<TreeNode*> 內存的點會連同其子節點一起顯示，感覺很特別
+        vector<TreeNode*> test = generateTree(1,4);//測試用
+        
+        cout<<test[5]->val;//測試用
+
+        return generateTree(1,n);
+    }
+    
+    vector<TreeNode*> generateTree(int start,int end)
+    {   
+        vector<TreeNode*> res;
+        if(start>end)
+        {   
+            res.push_back(NULL);
+        }
+        for(int i=start;i<=end;i++)   
+        {   
+            
+            vector<TreeNode*> lleft = generateTree(start,i-1); //回傳左邊所有變化後的子節點，每一回合改變
+            vector<TreeNode*> rright = generateTree(i+1,end);  //回傳左邊所有變化後的子節點，每一回合改變     
+            for(TreeNode* leftt:lleft)//把每一種左邊的變化
+                for(TreeNode* rightt:rright)//把每一種右邊的變化
+                {   
+                    TreeNode* curr = new TreeNode(i);//新造一個點
+                    curr->left = leftt; //合起來
+                    curr->right = rightt; //合起來
+                    res.push_back(curr); //存進res中回傳
+                }
+               
+        }
+        
+        return res; //回傳所有變化
+    }
+};
