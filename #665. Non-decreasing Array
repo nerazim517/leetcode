@@ -1,0 +1,28 @@
+class Solution {
+public:
+    bool checkPossibility(vector<int>& nums) {
+        
+        int count =0;
+        int minn = -pow(10,5)-1; 
+        for(int i=0;i<nums.size()-1;i++)
+        {
+            if(nums[i]<=nums[i+1])
+            {   
+                minn = nums[i];
+                continue;
+            }
+            else//nums[i+1]比前一位數面小
+            {   
+                if(nums[i+1]<minn) //如果nums[i+1]比前第2位數小
+                    nums[i+1] = nums[i]; //變大
+                                            //如果沒有，就代表nums[i]要變小，因為每一回合都跟下一個位置比，因此可忽略
+                count++;
+            }
+            if(count==2)
+                return false;
+        }
+        
+        
+        return true;
+    }
+};
