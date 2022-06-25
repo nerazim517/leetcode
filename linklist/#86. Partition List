@@ -1,0 +1,37 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {  //新增一條串列，把大的挑出來，最後兩條合併即可
+public:
+    ListNode* partition(ListNode* head, int x) {
+        ListNode* dummy = new ListNode(-1);
+        ListNode* dummycurr = dummy;
+        ListNode* dumm = new ListNode(-1);
+        ListNode* start = dumm;
+        dumm->next = head;
+        while(start->next!=NULL)
+        {   
+            
+            if((start->next->val)>=x)
+            {   
+                dummycurr->next = start->next;
+                start->next = start->next->next;
+                dummycurr = dummycurr->next;
+                dummycurr->next = NULL;
+            }
+            else
+                start = start->next;
+            
+        }
+        start->next = dummy->next;
+        
+        return dumm->next;
+    }
+};
