@@ -1,0 +1,31 @@
+class Solution { //two pointer
+public:
+    int trap(vector<int>& height) {
+        int maxl = height[0];
+        int maxr = height[height.size()-1];        
+        int l = 0;
+        int r = height.size()-1;
+        int count = 0;
+        
+        while(l<r)
+        {
+            
+            if(maxl<maxr)
+            {
+                l++;
+                if(min(maxl,maxr)-height[l]>=0)
+                    count += min(maxl,maxr)-height[l];
+                maxl = max(maxl,height[l]);
+            }
+            else
+            {
+                r--;
+                if(min(maxl,maxr)-height[r]>=0)
+                    count += min(maxl,maxr)-height[r];
+                maxr = max(maxr,height[r]);
+            }
+        }
+        
+        return count;
+    }
+};
