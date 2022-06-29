@@ -1,0 +1,30 @@
+class Solution {
+public:
+    vector<vector<int>>ans;
+    vector<vector<int>> permuteUnique(vector<int>& nums) {
+        dfs(nums,0,nums.size()-1);
+        return ans;
+    }
+    void dfs(vector<int>& nums,int start,int end)
+    {
+        if(start>=end)
+        {
+            ans.push_back(nums);
+            
+            return;
+        }
+        unordered_map <int,bool> mp;
+        for(int i=start;i<=end;i++)
+        {
+            if(mp[nums[i]]==true)
+                continue;
+            mp[nums[i]]=true;
+            swap(nums[start],nums[i]);
+            dfs(nums,start+1,end);
+            swap(nums[start],nums[i]);
+        }
+        
+        
+    }
+  
+};
