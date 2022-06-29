@@ -1,0 +1,48 @@
+class Solution {
+public:
+    vector<vector<string>> ans;
+    vector<string> vec;
+    vector<vector<string>> partition(string s) {
+
+        cout<<isPalin(s);
+        dfs(s,0,s.size()-1,0);
+        return ans;
+    }
+    
+    void dfs(string s,int start,int end,int count)
+    {   
+        if(count==s.size())
+        {
+            ans.push_back(vec);
+        }
+        string ss = "";
+        for(int i=start;i<=end;i++)
+        {
+            ss+= s[i];
+            count++;
+            if(isPalin(ss))
+            {
+                vec.push_back(ss);
+                dfs(s,count,end,count);
+                vec.pop_back();
+            }
+        }
+        
+    }
+    bool isPalin(string str)
+    {
+        int l = 0;
+        int r = str.size()-1;
+        while(l<=r)
+        {   
+            if(str[l]!=str[r])
+                return false;
+            else
+            {
+                l++;
+                r--;
+            }
+        }
+        return true;
+    }
+};
