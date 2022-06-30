@@ -1,0 +1,91 @@
+class Solution {
+public:
+    int compareVersion(string version1, string version2) {
+        int starta = 0;
+        int startb = 0;
+        
+        while((version1[starta]!=NULL)&&(version2[startb]!=NULL))
+        {   
+            
+            while(version1[starta]=='0')
+            {
+                starta++;
+            }
+            while(version2[startb]=='0')
+            {
+                startb++;
+            }
+            
+            vector<int> a;
+            vector<int> b;
+            while((version1[starta]!='.')&&(version1[starta]!=NULL)&&(version2[startb]!='.')&&(version2[startb]!=NULL))
+            {
+                a.push_back(int(version1[starta])-int('0'));
+                b.push_back(int(version2[startb])-int('0'));
+                starta++;
+                startb++;
+            }
+            while((version1[starta]!='.')&&(version1[starta]!=NULL))
+            {
+                a.push_back(int(version1[starta])-int('0'));
+                starta++;
+            }
+            while((version2[startb]!='.')&&(version2[startb]!=NULL))
+            {
+                b.push_back(int(version2[startb])-int('0'));
+                startb++;
+            }
+            int suma = 0;
+            int sumb = 0;
+            int tempa = 1;
+            int tempb = 1;
+            for(int i=a.size()-1;i>=0;i--)
+            {
+                suma+=a[i]*tempa;
+                if(i>0)
+                    tempa*=10;
+            }
+            for(int i=b.size()-1;i>=0;i--)
+            {
+                sumb+=b[i]*tempb;
+                if(i>0)
+                    tempb*=10;
+            }
+            cout<<suma<<" "<<sumb<<endl;
+            if(suma>sumb)
+                return 1;
+            else if(suma<sumb)
+                return -1;
+            starta++;
+            startb++;
+            if(starta>version1.size())
+                break;
+            if(startb>version2.size())
+                break;
+        }
+        
+        
+        
+        if(starta<=version1.size())
+        {   
+            
+            for(int i=starta;i<version1.size();i++)
+            {
+                if((!(version1[i]=='.'))&&(!(version1[i]=='0')))
+                    return 1;
+            }
+        }
+        if(startb<=version2.size())
+        {   
+            
+            for(int i=startb;i<version2.size();i++)
+            {   
+                cout<<version2[startb];
+                if((!(version2[i]=='.'))&&(!(version2[i]=='0')))
+                    return -1;
+            }
+        }
+        
+        return 0;
+    }
+};
