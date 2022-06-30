@@ -1,0 +1,38 @@
+class Solution {
+public:
+    vector<string> ans;
+    unordered_map<string,bool> mp;
+    vector<string> generateParenthesis(int n) {
+        string s = "";
+        dfs(n,0,0,s);
+        return ans;
+    }
+    void dfs(int n,int useda,int usedb,string s)
+    {
+ 
+        for(int i=useda;i<n;i++)
+        {
+            s+="(";
+            useda++;
+            usedb++;
+            for(int j=usedb;j>=0;j--)
+            {   
+                dfs(n,useda,usedb,s);
+                if(j>0)
+                {
+                    s+=")";
+                    usedb--;
+                }
+            }
+            
+        }
+        if(s.size()==n*2)
+        {   
+            if(mp[s]==false)
+            {
+                ans.push_back(s); 
+                mp[s] = true;
+            }
+        }
+    }
+};
