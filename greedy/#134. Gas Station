@@ -1,0 +1,28 @@
+class Solution {
+public:
+    int canCompleteCircuit(vector<int>& gas, vector<int>& cost) {
+        int gassum = 0;
+        int costsum =0;
+        for(int gass:gas)
+            gassum+=gass;
+        for(int cos:cost)
+            costsum+=cos;
+        if(costsum>gassum)
+            return -1;
+        
+        int remain = 0;
+        int index = 0;
+        for(int i=0;i<gas.size();i++)
+        {    
+            remain = remain +gas[i]-cost[i];
+            if(remain<0)
+            {
+                remain =0;
+                index = i+1;
+                continue;
+            }
+        }
+        
+        return index;
+    }
+};
