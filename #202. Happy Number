@@ -1,0 +1,36 @@
+class Solution {
+public:
+    unordered_map<int,bool> mp;
+    bool isHappy(int n) {
+        
+        if(n==1)
+            return true;
+        
+        int sum=0;
+        
+        int i=-1;
+        
+        int m =n;
+        while(m>0)
+        {
+            m/=10;
+            i++;
+        }
+        int z = pow(10,i);
+        while(n>10)
+        {   
+            
+            sum+=(n/z)*(n/z);
+            n-=(n/z)*z;
+            z/=10;
+        }
+        sum+=n*n;
+        
+        cout<<sum;
+        if(mp[sum]==true)
+            return false;
+        else
+            mp[sum]= true;
+        return isHappy(sum);
+    }
+};
