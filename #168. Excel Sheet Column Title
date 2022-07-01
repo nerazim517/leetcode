@@ -1,0 +1,42 @@
+class Solution {
+public:
+    vector<int> vec;
+    string convertToTitle(int columnNumber) {
+        string ans =""; 
+        int count = -1;
+        int i = columnNumber;
+        while(i>0)
+        {
+            i /=26;
+            count++;
+        }
+        for(int i=count;i>=0;i--)
+        {
+            int num = pow(26,i);
+            vec.push_back(columnNumber/num);
+            columnNumber-=((columnNumber/num)*num);
+        }
+        
+        
+        for(int i=vec.size()-1;i>0;i--)
+        {
+            if(vec[i]<=0)
+            {
+                vec[i] += 26;
+                vec[i-1]-=1;
+            }
+        }
+        
+        for(int i=0;i<vec.size();i++)
+            cout<<vec[i];
+        
+        if(vec[0]==0)
+            vec.erase(vec.begin());
+        
+        for(int i=0;i<vec.size();i++)
+        {
+            ans+=char(int('A')+vec[i]-1);
+        }
+        return ans;
+    }
+};
