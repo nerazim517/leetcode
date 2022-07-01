@@ -1,0 +1,26 @@
+class Solution {
+public:
+    int trailingZeroes(int n) {
+        if(n==0)
+            return 0;
+        int FiveAmount = 0;
+        int TwoAmount = 0;
+        for(int i=1;i<=n;i++)
+        {
+            int a = i;
+            while(a%2==0)
+            {
+                a = a/2;
+                TwoAmount++;
+            }
+            a = i;
+            while(a%5==0)
+            {
+                a = a/5;
+                FiveAmount++;
+            }
+        }
+        return min(FiveAmount,TwoAmount);
+    }
+};
+
