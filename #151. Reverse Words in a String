@@ -1,0 +1,74 @@
+class Solution {
+public:
+    string reverseWords(string s) {
+        string ans="";
+        for(int i=0;i<s.size();i++) //把前面的" "刪掉
+        {   
+            if(s[i] !=' ')
+                break;
+            else
+            {
+                s.erase(s.begin());
+                i--;
+            }
+        }
+        
+        for(int i=s.size()-1;i>=0;i--)
+        {   
+            if(s[i] !=' ')
+                break;
+            else
+            {
+                s.erase(s.end()-1);
+            }
+        }
+        
+        
+        stack <char> S;
+        
+        int count = 0;
+        for(auto i=s.end()-1;i!=s.begin()-1;i--)
+        {
+            if(*i!=' ')
+            {    
+                S.push(*i);  
+            }
+            else if(*i==' ')
+            {   
+                
+                while(!S.empty())
+                {
+                    ans+=S.top();
+                    S.pop();
+                    count ++; 
+                }
+                ans+=' ';
+                for(auto j=i;j!=s.begin()-1;j--)
+                {   
+                    
+                    if(*j!=' ')
+                        break;
+                    else
+                    {
+                        s.erase(j);
+                        i--;
+                    }
+                }
+                i++;
+                
+            }
+            if((!S.empty())&&(i==s.begin()))
+            {
+                while(!S.empty())
+                {
+                    ans+=S.top();
+                    S.pop();
+                    
+                }
+            }
+            
+        }
+        
+        return ans;
+    }
+};
