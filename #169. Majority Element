@@ -1,0 +1,15 @@
+class Solution {
+public:
+    int majorityElement(vector<int>& nums) {
+        int mid = nums.size()/2;
+        unordered_map <int,int> mp;
+        for(int i:nums)
+        {
+            if(mp[i]==mid)
+                return i;
+            else
+                mp[i]++;
+        }
+        return {};
+    }
+};
