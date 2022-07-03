@@ -1,0 +1,33 @@
+class Trie {
+public:
+    unordered_map<string,bool> mp1,mp2;
+    Trie() {
+        
+    }
+    
+    void insert(string word) {
+        mp1[word] = true;
+        string s = "";
+        for(int i=0;i<word.size();i++)
+        {
+            s+=word[i];
+            mp2[s] = true;
+        }
+    }
+    
+    bool search(string word) {
+        return mp1[word];
+    }
+    
+    bool startsWith(string prefix) {
+        return mp2[prefix];
+    }
+};
+
+/**
+ * Your Trie object will be instantiated and called as such:
+ * Trie* obj = new Trie();
+ * obj->insert(word);
+ * bool param_2 = obj->search(word);
+ * bool param_3 = obj->startsWith(prefix);
+ */
