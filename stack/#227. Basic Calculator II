@@ -1,0 +1,105 @@
+class Solution {
+public:
+    int calculate(string s) {
+        stack <int> s1;
+        stack <char> s2;
+        stack <int> s3;
+        int index = 0;
+        int temp = 1;
+        int sum =0;
+        int u = 0;
+        for(int i=0;i<s.size();i++)
+        {
+            if(s[i]==' ')
+            {
+                s.erase(s.begin()+i);
+                i--;
+            }
+        }
+        while((int(s[index])<=int('9'))&&(int('0')<=int(s[index])))
+        {
+            s3.push(int(s[index])-int('0'));
+            index++;
+        }
+        while(!s3.empty())
+        {
+            sum+=s3.top()*temp;
+            s3.pop();
+            if(!s3.empty())
+                temp*=10;
+        }
+        s1.push(sum);
+        for(int i=index;i<s.size();i++)
+        {
+            if((s[i]=='*')||(s[i]=='/'))
+            {   
+                sum = 0;
+                temp = 1;
+                char c = s[i];
+                while((int(s[i+1])<=int('9'))&&(int('0')<=int(s[i+1]))&&(i+1<s.size()))
+                {   
+                    s3.push(int(s[i+1])-int('0'));
+                    i++;
+                }
+                i--;
+                while(!s3.empty())
+                {
+                    sum+=s3.top()*temp;
+                    s3.pop();
+                    if(!s3.empty())
+                        temp*=10;
+                }
+                
+                if(c=='*')
+                {
+                    int num = s1.top();
+                    s1.pop();
+                    s1.push(num*sum);
+                }
+                else if(c=='/')
+                {
+                    int num = s1.top();
+                    s1.pop();
+                    s1.push(num/sum);
+                }
+            }
+            else if((s[i]=='+')||(s[i]=='-'))
+            {   
+                s2.push(s[i]);
+                sum = 0;
+                temp = 1;
+                char c = s[i];
+                while((int(s[i+1])<=int('9'))&&(int('0')<=int(s[i+1]))&&(i+1<s.size()))
+                {   
+                    s3.push(int(s[i+1])-int('0'));
+                    i++;
+                }
+                i--;
+                while(!s3.empty())
+                {
+                    sum+=s3.top()*temp;
+                    s3.pop();
+                    if(!s3.empty())
+                        temp*=10;
+                }
+                s1.push(sum);    
+            }
+        }
+        sum = 0;
+        while(!s2.empty())
+        {
+            char s = s2.top();
+            
+            s2.pop();
+            int num1 = s1.top();
+            s1.pop();
+            
+            if(s=='+')
+                sum+=num1;
+            else
+                sum-=num1;
+        }
+        sum+=s1.top();
+        return sum;
+    }
+};
