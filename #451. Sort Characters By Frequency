@@ -1,0 +1,37 @@
+class Solution {
+public:
+    string frequencySort(string s) {
+        unordered_map <int,int> mp;
+        vector<int> vec;
+        string ans ="";
+        
+        for(int i=0;i<s.size();i++)
+        {
+            mp[int(s[i])]++;
+        }
+        for(int i=int('0');i<=int('z');i++)
+        {   
+            if(mp[i]==0)
+                continue;
+            vec.push_back(mp[i]);
+        }
+        sort(vec.begin(),vec.end(),greater<int>());
+        
+        for(int i=0;i<vec.size();i++)
+        {
+            for(int j=int('0');j<=int('z');j++)
+            {
+                if(mp[j]==vec[i])
+                {
+                    for(int z=vec[i];z>0;z--)
+                    {
+                        ans+=char(j);
+                    }
+                    mp[j]=0;
+                }
+                
+            }
+        }
+        return ans;
+    }
+};
