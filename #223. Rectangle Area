@@ -1,0 +1,103 @@
+class Solution {
+public:
+    int computeArea(int ax1, int ay1, int ax2, int ay2, int bx1, int by1, int bx2, int by2) {
+        int ans = (ax2-ax1)*(ay2-ay1)+(bx2-bx1)*(by2-by1);
+        if((bx2>=ax2)&&(by2>=ay2)&&(ax2>=bx1)&&(bx1>=ax1)&&(ay2>=by1)&&(by1>=ay1)) //b右上
+        {   
+            cout<<"1";
+            ans -=(ay2-by1)*(ax2-bx1);
+            return ans;
+        }
+        else if((ay1>=by1)&&(bx2>=ax2)&&(ay2>=by2)&&(by2>=ay1)&&(ax2>=bx1)&&(bx1>=ax1)) //b右下 ok
+        {   
+            cout<<"2";
+            ans -=(by2-ay1)*(ax2-bx1);
+            return ans;
+        }
+        else if((ax1>=bx1)&&(by2>=ay2)&&(ax2>=bx2)&&(bx2>=ax1)&&(ay2>=by1)&&(by1>=ay1)) //b左上 ok
+        {   
+            cout<<"3";
+            ans -=(bx2-ax1)*(ay2-by1);
+            return ans;
+        }
+        else if((ax1>=bx1)&&(ay1>=by1)&&(ax2>=bx2)&&(bx2>=ax1)&&(ay2>=by2)&&(by2>=ay1)) //b左下
+        {   
+            cout<<"4";
+            ans -=(bx2-ax1)*(by2-ay1);
+            return ans;
+        }
+        else if((ax1>=bx1)&&(ay1>=by1)&&(bx2>=ax2)&&(by2>=ay2))
+        {   
+            cout<<"5";
+            return (bx2-bx1)*(by2-by1);
+        }
+        else if((bx1>=ax1)&&(by1>=ay1)&&(ax2>=bx2)&&(ay2>=by2))
+        {   
+            cout<<"6";
+            return (ax2-ax1)*(ay2-ay1);
+        }
+        else if((ax1>=bx1)&&(bx2>=ax2)&&(ay2>=by2)&&(by2>=ay1)&&(ay1>=by1)) //a在b中上
+        {   
+            cout<<"7";
+            ans -=(ax2-ax1)*(by2-ay1);
+            return ans;
+        }
+        else if((bx1>=ax1)&&(ax2>=bx2)&&(by2>=ay2)&&(ay2>=by1)&&(by1>=ay1)) //b在a中上 ok
+        {
+            cout<<"8";
+            ans -=(bx2-bx1)*(ay2-by1);
+            return ans;
+        }
+        else if((ax1>=bx1)&&(bx2>=ax2)&&(by1>=ay1)&&(ay2>=by1)&&(by2>=ay2)) //a在b中下
+        {
+            cout<<"9";
+            ans -=(ax2-ax1)*(ay2-by1);
+            return ans;
+        }
+        else if((bx1>=ax1)&&(ax2>=bx2)&&(ay1>=by1)&&(by2>=ay1)&&(ay2>=by2)) //b在a中下 ok
+        {
+            cout<<"10";
+            ans -=(bx2-bx1)*(by2-ay1);
+            return ans;
+        }
+        else if((by2>=ay2)&&(ay1>=by1)&&(ax2>=bx2)&&(bx2>=ax1)&&(ax1>=bx1)) //a在b中右
+        {
+            cout<<"11";
+            ans -=(ay2-ay1)*(bx2-ax1);
+            return ans;
+        }
+        else if((ay2>=by2)&&(by1>=ay1)&&(bx2>=ax2)&&(ax2>=bx1)&&(bx1>=ax1))//b在a中右
+        {
+            cout<<"12";
+            ans -=(by2-by1)*(ax2-bx1);
+            return ans;
+        }
+        else if((by2>=ay2)&&(ay1>=by1)&&(bx1>=ax1)&&(ax2>=bx1)&&(ax2<=bx2)) //a在b中左 
+        {
+            cout<<"13";
+            ans -=(ay2-ay1)*(ax2-bx1);
+            return ans;
+        }
+        else if((ay2>=by2)&&(by1>=ay1)&&(ax1>=bx1)&&(bx2>=ax1)&&(bx2<=ax2)) //b在a中左
+        {
+            cout<<"14";
+            ans -=(by2-by1)*(bx2-ax1);
+            return ans;
+        }
+        else if((bx1>=ax1)&&(ax2>=bx2)&&(ay1>=by1)&&(by2>=ay2))
+        {
+            cout<<"15";
+            ans-=(bx2-bx1)*(ay2-ay1);
+            return ans;
+        }
+        else if((ax1>=bx1)&&(bx2>=ax2)&&(by1>=ay1)&&(ay2>=by2))
+        {
+            cout<<"16";
+            ans-=(ax2-ax1)*(by2-by1);
+            return ans;
+        }
+        
+        cout<<"17";
+        return ans;
+    }
+};
