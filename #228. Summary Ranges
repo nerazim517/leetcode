@@ -1,0 +1,74 @@
+class Solution {
+public:
+    vector<string> summaryRanges(vector<int>& nums) {
+        vector<string> ans;
+        for(int i=0;i<nums.size();i++)
+        {   
+            stack <int> S;
+            string s = "";
+            bool b = false;
+            bool o = false;
+            int l = nums[i];
+            if(l==0)
+                s+="0";
+            if(l<0)
+            {   
+                if(l==-2147483648)
+                {
+                    l = l+1;
+                    o = true;
+                }
+                s+="-";
+                l*=-1;
+            }
+            while(l>0)
+            {   
+                if(o)
+                {
+                    S.push(l%10+1);
+                    o = false;
+                }
+                else
+                    S.push(l%10);
+                l/=10;
+            }
+            while(!S.empty())
+            {   
+                int a = S.top();
+                S.pop();
+                s+=char(int(a)+int('0'));
+            }
+            while((i<nums.size()-1)&&(nums[i]+1==nums[i+1]))
+            {   
+                b = true;
+                i++;
+            }
+            int r = nums[i];
+            if(b==true)
+            {
+                s+="->";
+                if(r==0)
+                    s+="0";
+                if(r<0)
+                {
+                    s+="-";
+                    r*=-1;
+                }
+                while(r>0)
+                {
+                    S.push(r%10);
+                    r/=10;
+                }
+                while(!S.empty())
+                {   
+                    int aa = S.top();
+                    S.pop();
+                    s+=char(int(aa)+int('0'));
+                }
+            }
+            ans.push_back(s);
+        }
+        
+        return ans;
+    }
+};
