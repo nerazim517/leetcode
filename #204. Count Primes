@@ -1,0 +1,23 @@
+class Solution {  //unordered_map 比 vector還要花時間
+public:
+    int countPrimes(int n) {
+        if(n<=2)
+            return false;
+        vector<bool> vec(n+1);
+        int ans = 0;
+        for(int i=2;i<n;i++)
+        {   
+            if(!vec[i])   
+            {
+                int temp = i;
+                ans++;
+                while(temp<=n)
+                {
+                    vec[temp] = true;
+                    temp+=i;
+                }
+            }
+        }
+        return ans;
+    }
+};
