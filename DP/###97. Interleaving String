@@ -1,0 +1,36 @@
+class Solution { //dp
+public:
+    bool isInterleave(string s1, string s2, string s3) {
+        if(s1.size()+s2.size()!=s3.size())
+            return false;
+        vector<vector<bool>>dp (s1.size()+1,vector<bool>(s2.size()+1));
+        dp[s1.size()][s2.size()] = true;
+        for(int i=s1.size()-1;i>=0;i--)
+        {
+            if((s1[i]==s3[i+s2.size()])&&(dp[i+1][s2.size()]==true))
+                dp[i][s2.size()] = true;
+        }
+        for(int i=s2.size()-1;i>=0;i--)
+        {
+            if((s2[i]==s3[i+s1.size()])&&(dp[s1.size()][i+1]==true))
+                dp[s1.size()][i] = true;
+        }
+        for(int i=s1.size()-1;i>=0;i--)
+        {
+            for(int j = s2.size()-1;j>=0;j--)
+            {
+                if((s1[i]==s3[i+j])&&(dp[i+1][j]==true))
+                    dp[i][j] = true;
+                if((s2[j]==s3[i+j])&&(dp[i][j+1]==true))
+                    dp[i][j] = true;
+            }
+        }
+        /*for(int i=0;i<=s1.size();i++) //check code
+        {
+            for(int j=0;j<=s2.size();j++)
+                cout<<dp[i][j];
+            cout<<endl;
+        }*/
+        return dp[0][0];
+    }
+};
