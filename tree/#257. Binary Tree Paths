@@ -1,0 +1,80 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    vector<string> ans;
+    vector<string> binaryTreePaths(TreeNode* root) {
+        dfs(root,"");
+        return ans;
+    }
+    void dfs(TreeNode* root,string s)
+    {   
+        if((root->right==NULL)&&(root->left==NULL))
+        {   
+            
+            for(int i=0;i<s.size();i++)
+                cout<<s[i];
+            bool b = false;
+            if(root->val<0)
+            {
+                b = true;
+                root->val = root->val*-1;
+            }
+            stack<int> ss;
+            int count  = 0;
+            while(root->val>0)
+            {
+                ss.push(root->val%10);
+                root->val = root->val/10;
+            }
+            if(b)
+                s+="-";
+            while(!ss.empty())
+            {   
+                s+=char(ss.top()+int('0'));
+                ss.pop();
+            }
+            ans.push_back(s);
+           
+        }
+        else
+        {
+            stack<int> ss;
+            int count  = 0;
+            bool b = false;
+            if(root->val<0)
+            {
+                b = true;
+                root->val = root->val*-1;
+            }
+            
+            while(root->val>0)
+            {
+                ss.push(root->val%10);
+                root->val = root->val/10;
+            }
+            if(b)
+                s+="-";
+            while(!ss.empty())
+            {   
+                s+=char(ss.top()+int('0'));
+                ss.pop();
+            }
+            s+="->";
+            if(root->left!=NULL)
+                dfs(root->left,s);
+            if(root->right!=NULL)
+                dfs(root->right,s);
+        }
+        
+    }
+};
