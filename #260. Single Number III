@@ -1,0 +1,28 @@
+class Solution {
+public:
+    vector<int> singleNumber(vector<int>& nums) {
+        sort(nums.begin(),nums.end());
+        vector<int> ans;
+        if(nums.size()==2)
+            if(nums[0]!=nums[1])
+            {
+                ans.push_back(nums[0]);
+                ans.push_back(nums[1]);
+                return ans;
+            }
+        for(int i=0;i<nums.size();i++)
+        {   
+            if(i==nums.size()-1)
+                ans.push_back(nums[i]);
+            else if(nums[i]==nums[i+1])
+            {
+                i++;
+            }
+            else
+            {
+                ans.push_back(nums[i]);
+            }
+        }
+        return ans;
+    }
+};
