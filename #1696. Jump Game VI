@@ -1,0 +1,23 @@
+class Solution { //multiset==priority queue但multiset可以用find，比較好用
+public:
+    int maxResult(vector<int>& nums, int k) {
+        unordered_map <int,int> dp;
+        multiset <int> Q;
+        dp[0] = nums[0];
+        Q.insert(nums[0]);
+        for(int i=1;i<nums.size();i++)
+        {   
+            
+            if(Q.size()>k)
+            {
+                auto it = Q.find(dp[i-k-1]);
+                Q.erase(it);
+            }
+            dp[i] = *Q.rbegin() + nums[i];
+            Q.insert(dp[i]);
+            
+        }
+        
+        return dp[dp.size()-1];
+    }
+};
