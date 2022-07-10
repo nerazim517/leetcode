@@ -1,0 +1,56 @@
+class Solution {
+public:
+    string getHint(string secret, string guess) {
+        int count = 0; //A
+        int count2 = 0; //B+A;
+        string s ="";
+        unordered_map <char,int> mp1,mp2;
+        for(int i=0;i<secret.size();i++)
+        {
+            if(secret[i]==guess[i])
+                count++;
+            mp1[secret[i]]++;
+            mp2[guess[i]]++;
+        }
+        
+        for(int i=int('0');i<=int('9');i++)
+        {
+            count2+=min(mp1[char(i)],mp2[char(i)]);
+        }
+        count2-=count;
+        
+        stack <char> S;
+        while(count>0)
+        {
+            S.push(char(count%10+int('0')));
+            count /=10;
+        }
+        if(S.empty())
+        {
+            s+="0";
+        }
+        while(!S.empty())
+        {
+            s+=S.top();
+            S.pop();
+        }
+        s+="A";
+        
+        while(count2>0)
+        {
+            S.push(char(count2%10+int('0')));
+            count2/=10;
+        }
+        if(S.empty())
+        {
+            s+="0";
+        }
+        while(!S.empty())
+        {
+            s+=S.top();
+            S.pop();
+        }
+        s+="B";
+        return s;
+    }
+};
