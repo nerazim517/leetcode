@@ -1,0 +1,83 @@
+class Solution {
+public:
+    int ans = 0;
+    int findPaths(int m, int n, int maxMove, int startRow, int startColumn) {
+        vector<vector<long long>> vec(m,vector<long long>(n));
+        vector<vector<long long>> copy(m,vector<long long>(n));
+        vector<vector<long long>> prev(m,vector<long long>(n));
+        maxMove--;
+        for(int i=0;i<vec.size();i++)
+        {
+            vec[i][0]++;
+            vec[i][n-1]++;
+        }
+        for(int i=0;i<vec[0].size();i++)
+        {
+            vec[0][i]++;
+            vec[m-1][i]++;
+        }
+        for(int i=0;i<vec.size();i++)
+        {
+            for(int j=0;j<vec[0].size();j++)
+                cout<<vec[i][j];
+            cout<<endl;
+        }
+        
+        if(maxMove==0)
+            return vec[startRow][startColumn]%(1000000007);
+        
+        int count = 0;
+        prev = vec;
+        while(count<maxMove)
+        {   
+            cout<<endl;
+            copy = vec;
+            for(int i=0;i<copy.size();i++)
+            {
+                for(int j=0;j<copy[0].size();j++)
+                {
+                    if(i-1>=0)
+                        copy[i][j]+=vec[i-1][j];
+                    if(j-1>=0)
+                        copy[i][j]+=vec[i][j-1];
+                    if(i+1<m)
+                        copy[i][j]+=vec[i+1][j];
+                    if(j+1<n)
+                        copy[i][j]+=vec[i][j+1];
+                }
+            }
+            if(count>=1)
+            {
+                for(int i=0;i<copy.size();i++)
+                {
+                    for(int j=0;j<copy[0].size();j++)
+                    {
+                        if(i-1>=0)
+                            copy[i][j]-=prev[i-1][j];
+                        if(j-1>=0)
+                            copy[i][j]-=prev[i][j-1];
+                        if(i+1<m)
+                            copy[i][j]-=prev[i+1][j];
+                        if(j+1<n)
+                            copy[i][j]-=prev[i][j+1];
+                    }
+                }
+            }
+            for(int i=0;i<copy.size();i++)
+            {
+                for(int j=0;j<copy[0].size();j++)
+                {
+                    copy[i][j] = copy[i][j]%1000000007;
+                }
+            }
+            
+            prev = vec;
+            vec = copy;
+            count++;
+        }
+        
+        
+        return copy[startRow][startColumn]%(1000000007);
+    }
+    
+};
