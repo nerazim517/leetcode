@@ -1,0 +1,29 @@
+class Solution {
+public:
+    int ans = INT_MAX;
+    int integerReplacement(int n) {
+        if(n==2147483647)
+        {
+            dfs(1073741824,2);
+            dfs(2147483646,1);
+        }
+        else
+            dfs(n,0);
+        return ans;
+    }
+    void dfs(int n,int k)
+    {   
+        
+        if(n==1)
+            ans = min(ans,k);
+        else if(n%2==0)
+        {
+            dfs(n/2,k+1);
+        }
+        else
+        {
+            dfs(n-1,k+1);
+            dfs(n+1,k+1);
+        }
+    }
+};
