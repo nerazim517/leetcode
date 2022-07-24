@@ -1,0 +1,52 @@
+class Solution { //math
+public:
+    int findNthDigit(int n) {
+        if(n==10)
+            return 1;
+        if(n==30)
+            return 2;
+        long x = 9;
+        long sum = 0;
+        int i;
+        for(i=1;i<11;i++)
+        {
+            sum+=i*x;
+            cout<<sum<<endl;
+            if(n<=sum)
+            {   
+                sum-=i*x;
+                break;
+            }
+            x*=10;
+        }
+        cout<<"i:"<<i<<endl;
+        cout<<endl;
+        int q = n-sum;//q代表在i個位元的數字中偏移的量
+        cout<<q;
+        q--;
+        int z = q/i;//z代表在i個位元的數字中第幾個數字
+        z++;
+        q++;
+        int c = q%i;//c代表在在第z個數字中的第幾個位元
+        cout<<endl<<"z:"<<z<<"c:"<<c<<endl;
+        long num = pow(10,i-1);
+        num+=z;
+        
+        num--;
+        cout<<endl;
+        cout<<"num:"<<num<<" "<<c<<endl;//num代表數字的值
+        vector<int> vec(i+1);
+        int r = i;
+        while(num>0)
+        {   
+            cout<<num%10<<endl;
+            vec[r]=num%10;
+            r--;
+            num/=10;
+        }
+        vec[0] = vec[i];
+        for(int f=0;f<i;f++)
+            cout<<vec[f];
+        return vec[c];
+    }
+};
