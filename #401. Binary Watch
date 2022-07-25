@@ -1,0 +1,141 @@
+class Solution {
+public:
+    unordered_map <int,vector<string>> h,m;
+    vector<int> hour,minute;
+    vector<string> readBinaryWatch(int turnedOn) {
+        vector<string> ans;
+        hour.push_back(8);
+        hour.push_back(4);
+        hour.push_back(2);
+        hour.push_back(1);
+        minute.push_back(32);
+        minute.push_back(16);
+        minute.push_back(8);
+        minute.push_back(4);
+        minute.push_back(2);
+        minute.push_back(1);
+        for(int i=0;i<=4;i++)
+        {
+    
+            vector<string> vec;
+            dfsh(i,0,vec,0);
+            h[i] = vec;
+        }
+
+        for(int i=0;i<=6;i++)
+        {   
+            vector<string> vec;
+            dfsm(i,0,vec,0);
+            m[i]= vec;
+        }
+        
+        for(int i=0;i<=4;i++)
+        {
+            vector<string> v = h[i];
+            for(string u:v)
+            {
+                for(int k=0;k<u.size();k++)
+                    cout<<u[k];
+            }
+            cout<<endl;
+        }
+        //------------------------------------------------------------------------
+        
+        for(int i=0;i<=min(turnedOn,4);i++) //h可取數量，m可取數量為turnedOn-i
+        {
+            vector<string> copyh = h[i];
+            vector<string> copym = m[turnedOn-i];
+            for(int u=0;u<copyh.size();u++)
+            {   
+                string s ="";
+                s+=copyh[u];
+                s+=":";
+                for(int q=0;q<copym.size();q++)
+                {
+                    ans.push_back(s+copym[q]);
+                }
+            }
+        }
+        //------------------------------------------------------------------------
+        return ans;
+    }
+    void dfsh(int k,int sum,vector<string>& vec,int start)
+    {
+        
+        if(k==0)
+        {
+            if(sum>=12)
+                return;
+            if(sum==0)
+            {
+                vec.push_back("0");
+                return;
+            }
+            
+            string s ="";
+            stack<char> ss;
+            while(sum>0)
+            {
+                ss.push(char(int(sum%10)+int('0')));
+                sum/=10;
+            }
+            while(!ss.empty())
+            {
+                s+=ss.top();
+                ss.pop();
+            }
+            vec.push_back(s);
+            return;
+        }
+        else
+        {
+            for(int i=start;i<=3;i++)
+            {
+                sum+=hour[i];
+                dfsh(k-1,sum,vec,i+1);
+                sum-=hour[i];
+            }
+        }
+    }
+    void dfsm(int k,int sum,vector<string>& vec,int start)
+    {
+        if(k==0)
+        {
+            if(sum>=60)
+                return;
+            if(sum==0)
+            {
+                vec.push_back("00");
+                return;
+            }
+            
+            string s ="";
+            stack<char> ss;
+            if(sum<10)
+            {
+                s ="0";
+            }
+            while(sum>0)
+            {
+                ss.push(char(int(sum%10)+int('0')));
+                sum/=10;
+            }
+            while(!ss.empty())
+            {
+                s+=ss.top();
+                ss.pop();
+            }
+            vec.push_back(s);
+            return;
+        }
+        else
+        {
+            for(int i=start;i<=5;i++)
+            {
+                sum+=minute[i];
+                dfsm(k-1,sum,vec,i+1);
+                sum-=minute[i];
+            }
+        }
+    }
+};
