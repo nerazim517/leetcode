@@ -31,3 +31,71 @@ public:
         return (dfs(root->right,tar)||dfs(root->left,tar));
     }
 };
+---------------------------------------------------------------------------------------------
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    vector<TreeNode*> l,r;
+    TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
+        vector<TreeNode*> v,m;
+        dfsl(root,p->val,v);
+        dfsr(root,q->val,m);
+        TreeNode* ans=root;
+        for(int i=0;i<min(l.size(),r.size());i++)
+        {
+            if(l[i]!=r[i])
+                break;
+            else
+                ans = l[i];
+        }
+        return ans;
+    }
+    void dfsl(TreeNode* root,int tar,vector<TreeNode*>& vec)
+    {
+        
+        if(root==NULL)
+        {   
+            vec.push_back(NULL);
+            return;
+        }
+        else if(root->val==tar)
+        {
+            vec.push_back(root);
+            l=vec;
+            return;
+        }
+        vec.push_back(root);
+        dfsl(root->left,tar,vec);
+        vec.pop_back();
+        dfsl(root->right,tar,vec);
+        vec.pop_back();
+    }
+    void dfsr(TreeNode* root,int tar,vector<TreeNode*>& vec)
+    {
+        
+        if(root==NULL)
+        {   
+            vec.push_back(NULL);
+            return;
+        }
+        else if(root->val==tar)
+        {
+            vec.push_back(root);
+            r=vec;
+            return;
+        }
+        vec.push_back(root);
+        dfsr(root->left,tar,vec);
+        vec.pop_back();
+        dfsr(root->right,tar,vec);
+        vec.pop_back();
+    }
+};
