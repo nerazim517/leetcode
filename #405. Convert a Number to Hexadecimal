@@ -1,0 +1,62 @@
+class Solution {
+public:
+    string toHex(int num) {
+        string ans ="";
+        int i =0;
+        long numm = num;
+        if(num<0)
+            numm = pow(2,32)+num;
+        while(numm>=pow(16,i+1))
+        {
+            i++;
+        }
+        vector<int> vec;
+        while(i>=0)
+        {   
+            if(numm==0)
+                vec.push_back(0);
+            else
+            {
+                cout<<numm;
+                int n = numm/pow(16,i);
+                vec.push_back(n);
+                cout<<" "<<n<<endl;
+                numm-=n*pow(16,i);
+            }
+            i--;
+        }
+        for(int i=0;i<vec.size();i++)
+        {
+            if(vec[i]<10)
+            {
+                ans+=char(vec[i]+int('0'));
+            }
+            else
+            {
+                switch(vec[i]){
+                    case 10:
+                        ans+="a";
+                        break;
+                    case 11:
+                        ans+="b";
+                        break;
+                    case 12:
+                        ans+="c";
+                        break;
+                    case 13:
+                        ans+="d";
+                        break;
+                    case 14:
+                        ans+="e";
+                        break;
+                    case 15:
+                        ans+="f";
+                        break;
+                }
+            }
+            
+            
+        }
+        return ans;
+    }
+};
