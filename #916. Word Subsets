@@ -1,0 +1,40 @@
+class Solution {
+public:
+    vector<string> wordSubsets(vector<string>& words1, vector<string>& words2) {
+        unordered_map <char,int> mp;
+        vector<char> v;
+        vector<string> ans;
+        for(int i=0;i<words2.size();i++)
+        {
+            unordered_map<char,int> m;
+            for(int j=0;j<words2[i].size();j++)
+            {
+                m[words2[i][j]]++;
+                if(m[words2[i][j]]>mp[words2[i][j]])
+                {
+                    v.push_back(words2[i][j]);
+                    mp[words2[i][j]]=m[words2[i][j]];
+                }
+            }
+        }
+        if(v.size()>10)
+            return ans;
+        for(int i=0;i<words1.size();i++)
+        {   
+            unordered_map <char,int> p;
+            bool b = true;
+            for(int j=0;j<words1[i].size();j++)
+            {
+                p[words1[i][j]]++;
+            }
+            for(int l=0;l<v.size();l++)
+            {
+                if(p[v[l]]<mp[v[l]])
+                    b = false;
+            }
+            if(b)
+                ans.push_back(words1[i]);
+        }
+        return ans;
+    }
+};
