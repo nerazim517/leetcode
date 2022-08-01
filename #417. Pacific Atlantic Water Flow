@@ -1,0 +1,163 @@
+class Solution {
+public:
+    vector<vector<int>> pacificAtlantic(vector<vector<int>>& heights) {
+        vector<vector<bool>> vec1(heights.size(),vector<bool>(heights[0].size()));
+        vector<vector<bool>> vec2(heights.size(),vector<bool>(heights[0].size()));
+        vector<vector<int>> ans;
+        for(int i=0;i<vec1.size();i++)
+            vec1[i][0]=true;
+        for(int i=0;i<vec1[0].size();i++)
+            vec1[0][i]=true;
+        for(int i=1;i<vec1.size();i++)
+        {
+            for(int j=1;j<vec1[i].size();j++)
+            {
+                if((vec1[i][j]>=vec1[i][j-1])&&(vec1[i][j-1]))
+                {
+                    vec1[i][j]=true;
+                    continue;
+                }
+                if((vec1[i][j]>=vec1[i-1][j])&&(vec1[i-1][j]))
+                    vec1[i][j]=true;
+            }
+        }
+        bool b = true;
+        while(b)
+        {   
+            b = false;
+            for(int i=1;i<vec1.size();i++)
+            {
+                for(int j=1;j<vec1[i].size();j++)
+                {
+                    if(vec1[i][j])
+                        continue;
+                    if((heights[i][j]>=heights[i][j-1])&&(vec1[i][j-1]))
+                    {   
+                        
+                        b = true;
+                        vec1[i][j]=true;
+                        continue;
+                    }
+                    if((j+1<vec1[i].size())&&(heights[i][j]>=heights[i][j+1])&&(vec1[i][j+1]))
+                    {   
+                       
+                        b = true;
+                        vec1[i][j]=true;
+                        continue;
+                    }
+                    if((i+1<vec1.size())&&(heights[i][j]>=heights[i+1][j])&&(vec1[i+1][j]))
+                    {   
+                        
+                        b = true;
+                        vec1[i][j]=true;
+                        continue;
+                    }
+                    if((heights[i][j]>=heights[i-1][j])&&(vec1[i-1][j]))
+                    {   
+                        
+                        b = true;
+                        vec1[i][j]=true;
+                    }
+    
+                }
+            }
+        }
+        
+        
+        
+        for(int i=0;i<vec1.size();i++)
+            vec2[i][vec2[i].size()-1]=true;
+        for(int i=0;i<vec1[0].size();i++)
+            vec2[vec2.size()-1][i]=true;
+        
+        for(int i=vec2.size()-2;i>=0;i--)
+        {
+            for(int j=vec2[i].size()-2;j>=0;j--)
+            {
+                if((vec2[i+1][j])&&(vec2[i][j]>=vec2[i+1][j]))
+                {   
+                    vec2[i][j] = true;
+                    continue;
+                }
+                if((vec2[i][j+1])&&(vec2[i][j]>=vec2[i][j+1]))
+                {
+                    vec2[i][j] = true;
+                }
+            }
+        }
+        bool c = true;
+        while(c)
+        {
+            c = false;
+            for(int i=vec2.size()-2;i>=0;i--)
+            {
+                for(int j=vec2[i].size()-2;j>=0;j--)
+                {   
+                    if(vec2[i][j])
+                        continue;
+                    if((vec2[i+1][j])&&(heights[i][j]>=heights[i+1][j]))
+                    {   
+                        c = true;
+                        vec2[i][j] = true;
+                        continue;
+                    }
+                    if((i-1>=0)&&(vec2[i-1][j])&&(heights[i][j]>=heights[i-1][j]))
+                    {   
+                        c = true;
+                        vec2[i][j] = true;
+                        continue;
+                    }
+                    if((j-1>=0)&&(vec2[i][j-1])&&(heights[i][j]>=heights[i][j-1]))
+                    {      
+                        c = true;
+                        vec2[i][j] = true;
+                        continue;
+                    }
+                    if((vec2[i][j+1])&&(heights[i][j]>=heights[i][j+1]))
+                    {   
+                        c = true;
+                        vec2[i][j] = true;
+                    }
+                }
+            }
+            
+        }
+        
+        cout<<endl;
+        for(int i=0;i<vec1.size();i++)
+        {
+            for(int j=0;j<vec1[0].size();j++)
+            {
+                cout<<vec1[i][j];
+            }
+            cout<<endl;
+        }
+        cout<<"-------------------------------------"<<endl;
+        for(int i=0;i<vec1.size();i++)
+        {
+            for(int j=0;j<vec1[0].size();j++)
+            {
+                cout<<vec2[i][j];
+            }
+            cout<<endl;
+        }
+
+        
+        for(int i=0;i<vec1.size();i++)
+        {
+            for(int j=0;j<vec1[0].size();j++)
+            {
+                if((vec1[i][j])&&(vec2[i][j]))
+                {
+                    vector<int> v;
+                    v.push_back(i);
+                    v.push_back(j);
+                    ans.push_back(v);
+                }
+            }
+        }
+        
+        return ans;
+    }
+};
+
