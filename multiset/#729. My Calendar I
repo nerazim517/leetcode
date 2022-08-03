@@ -1,0 +1,40 @@
+class MyCalendar {
+public:
+    multiset <pair<int,int>,greater<pair<int,int>>> m;
+    MyCalendar() {
+        
+    }
+    
+    bool book(int start, int end) {
+        pair<int,int> p(start,end);
+        m.insert(p); 
+        if(m.size()>1)
+        {
+            auto it = m.find(p);
+            auto itt = it;
+            if((it->first<(++it)->second)&&(itt!=--m.end()))
+            {
+                m.erase(--it);
+                return false;
+            }
+        }
+        if(m.size()>1)
+        {
+            auto it = m.find(p);
+            auto itt = it;
+            if((it->second>(--it)->first)&&(itt!=m.begin()))
+            {
+                m.erase(++it);
+                return false;
+            }
+        }
+        
+        return true;
+    }
+};
+
+/**
+ * Your MyCalendar object will be instantiated and called as such:
+ * MyCalendar* obj = new MyCalendar();
+ * bool param_1 = obj->book(start,end);
+ */
