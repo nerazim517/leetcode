@@ -1,0 +1,39 @@
+class Solution {
+public:
+    vector<string> fizzBuzz(int n) {
+        vector<string> ans;
+        for(int i=1;i<=n;i++)
+        {   
+            if(i%15==0)
+            {
+                ans.push_back("FizzBuzz");
+            }
+            else if(i%3==0)
+            {
+                ans.push_back("Fizz");
+            }
+            else if(i%5==0)
+            {
+                ans.push_back("Buzz");
+            }
+            else
+            {
+                string ss = "";
+                stack<int> s;
+                int n = i;
+                while(n>0)
+                {
+                    s.push(n%10);
+                    n/=10;
+                }
+                while(!s.empty())
+                {
+                    ss+=char(s.top()+int('0'));
+                    s.pop();
+                }
+                ans.push_back(ss);
+            }
+        }
+        return ans;
+    }
+};
