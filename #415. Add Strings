@@ -1,0 +1,66 @@
+class Solution {
+public:
+    string addStrings(string num1, string num2) {
+        int i=num1.size()-1;
+        int j=num2.size()-1;
+        string ans = "";
+        int u = 0;
+        while((i>=0)&&(j>=0))
+        {   
+            int o=(int(num1[i])-int('0')+int(num2[j])-int('0'))+u;;
+            u=0;
+            if(o>=10)
+            {
+                u=1;
+                o-=10;
+                ans+=char(o+int('0'));
+            }
+            else
+            {
+                ans+=char(o+int('0'));
+            }
+            i--;
+            j--;
+        }
+        cout<<i<<j;
+        while(i>=0)
+        {   
+            int o=(int(num1[i])-int('0'))+u;
+            u=0;
+            if(o>=10)
+            {
+                u=1;
+                o-=10;
+                ans+=char(o+int('0'));
+            }
+            else
+            {
+                ans+=char(o+int('0'));
+            }
+            i--;
+        }
+        while(j>=0)
+        {   
+            int o=(int(num2[j])-int('0'))+u;
+            u=0;
+            if(o>=10)
+            {
+                u=1;
+                o-=10;
+                ans+=char(o+int('0'));
+            }
+            else
+            {
+                ans+=char(o+int('0'));
+            }
+            j--;
+        }
+        if(u==1)
+            ans+="1";
+        string anss;
+        for(int i=ans.size()-1;i>=0;i--)
+            anss+=ans[i];
+        
+        return anss;
+    }
+};
