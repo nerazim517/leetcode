@@ -1,0 +1,34 @@
+class Solution {
+public:
+    int numFactoredBinaryTrees(vector<int>& arr) {
+        unordered_map <long,long> ans;
+        
+        int mod = pow(10,9)+7;
+        sort(arr.begin(),arr.end());
+        vector<long> arrr;
+        for(int y:arr)
+            arrr.push_back(y);
+        int n = 0;
+        for(int i=0;i<arr.size();i++)
+        {
+            ans[arr[i]]++;
+            for(int j=0;j<=i;j++)
+            {   
+                long long l = arrr[j]*arrr[i];
+                if(l>arr[arr.size()-1])
+                    break;
+                ans[arr[j]*arr[i]]+=(ans[arr[j]]*ans[arr[i]])%mod;
+                if(arr[i]!=arr[j])
+                    ans[arr[j]*arr[i]]+=(ans[arr[j]]*ans[arr[i]])%mod;
+                ans[arr[j]*arr[i]] = ans[arr[j]*arr[i]]%mod;
+            }
+        }
+        for(int i:arr)
+        {   
+            n+=ans[i];
+            n = n%mod;
+        }
+        
+        return n;
+    }
+};
