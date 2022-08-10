@@ -1,0 +1,95 @@
+class Solution {
+public:
+    string originalDigits(string s) {
+        string ans = "";
+        unordered_map <char,int> mp;
+        for(int i=0;i<s.size();i++)
+        {
+           mp[s[i]]++;
+        }
+        int zero,one,two,three,four,five,six,seven,eight,nine;
+        
+        six = mp['x'];
+        mp['s']-=mp['x'];
+        mp['i']-=mp['x'];
+        
+        eight = mp['g'];
+        mp['i']-=mp['g'];
+        mp['e']-=mp['g'];
+        mp['h']-=mp['g'];
+        mp['t']-=mp['g'];
+        
+        seven = mp['s'];
+        mp['e']-=mp['s']*2;
+        mp['v']-=mp['s'];
+        mp['n']-=mp['s'];
+        
+        two = mp['w'];
+        mp['t']-=mp['w'];
+        mp['o']-=mp['w'];
+        
+        three = mp['h'];
+        mp['t']-=three;
+        mp['r']-=three;
+        mp['e']-=three*2;
+        
+        four = mp['u'];
+        mp['f']-=four;
+        mp['o']-=four;
+        mp['r']-=four;
+        
+        five = mp['v'];
+        mp['f']-=five;
+        mp['i']-=five;
+        mp['e']-=five;
+        
+        zero = mp['r'];
+        mp['o']-=zero;
+
+        one = mp['o'];
+        
+        nine = mp['i'];
+        for(int i=0;i<zero;i++)
+        {
+            ans+="0";
+        }
+        for(int i=0;i<one;i++)
+        {
+            ans+="1";
+        }
+        for(int i=0;i<two;i++)
+        {
+            ans+="2";
+        }
+        for(int i=0;i<three;i++)
+        {
+            ans+="3";
+        }
+        for(int i=0;i<four;i++)
+        {
+            ans+="4";
+        }
+        for(int i=0;i<five;i++)
+        {
+            ans+="5";
+        }
+        for(int i=0;i<six;i++)
+        {
+            ans+="6";
+        }
+        for(int i=0;i<seven;i++)
+        {
+            ans+="7";
+        }
+        for(int i=0;i<eight;i++)
+        {
+            ans+="8";
+        }
+        for(int i=0;i<nine;i++)
+        {
+            ans+="9";
+        }
+        
+        return ans;
+    }
+};
