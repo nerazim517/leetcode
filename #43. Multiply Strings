@@ -1,0 +1,117 @@
+class Solution {
+public:
+    string multiply(string num1, string num2) {
+        if((num2=="0")||(num1=="0"))
+            return "0";
+        vector<int> vec1;
+        vector<int> vec2;
+        vector<string> vec3;
+        string ans ="";
+        for(char c:num1)
+        {
+            vec1.push_back(int(int(c)-int('0')));
+        }
+        for(char c:num2)
+        {
+            vec2.push_back(int(int(c)-int('0')));
+        }
+        int u=0;
+        for(int i=vec2.size()-1;i>=0;i--)
+        {
+            string s = "";
+            u = 0;
+            for(int j=vec1.size()-1;j>=0;j--)
+            {
+                int o = vec1[j]*vec2[i];
+                o+=u;
+                
+                if(o>=10)
+                {
+                    u=o/10;
+                    o=o%10;
+                    string h ="";
+                    h+=char(o+int('0'));
+                    s.insert(0,h);
+                }
+                else
+                {   
+                    string h ="";
+                    h+=char(o+int('0'));
+                    s.insert(0,h);
+                    u=0;
+                }
+            }
+            if(u!=0)
+            {
+                string t = "";
+                t+=char(u+int('0'));
+                s.insert(0,t);
+            }
+            vec3.push_back(s);
+        }
+        
+        //-------------------------------------------------------------------
+        int p = vec3.size()-1;
+        for(int i=vec3.size()-1;i>=0;i--)
+        {
+            for(int j=p;j>0;j--)
+            {
+                vec3[i]+="0";
+            }
+            p--;
+        }
+        
+        for(int i=0;i<vec3.size();i++)
+        {
+            int j = vec3[vec3.size()-1].size()-vec3[i].size();
+            for(int y=0;y<j;y++)
+            {
+                vec3[i].insert(0,"0");
+            }
+        }
+        /*for(int i=0;i<vec3.size();i++)
+        {
+            for(int j=0;j<vec3[i].size();j++)
+            {
+                cout<<vec3[i][j];
+            }
+            cout<<endl;
+        }
+        cout<<"------------------------------------------------"<<endl;*/
+        int b = 0;
+        for(int i=vec3[vec3.size()-1].size()-1;i>=0;i--)
+        {   
+            int sum = 0;
+            for(int j=vec3.size()-1;j>=0;j--)
+            {   
+                /*cout<<j;*/
+                sum+=int(int(vec3[j][i])-int('0'));  
+            }
+            /*cout<<sum<<endl;*/
+            if(sum+b>=10)
+            {   
+                sum+=b;
+                b=sum/10;
+                sum=sum%10;
+                string f = "";
+                f+=char(sum+int('0'));
+                ans.insert(0,f);
+            }
+            else
+            {   
+                sum+=b;
+                b=0;
+                string f = "";
+                f+=char(sum+int('0'));
+                ans.insert(0,f);
+            }
+        }
+        
+        string y = "";
+        y+=char(b+int('0'));
+        if(b!=0)
+            ans.insert(0,y);
+
+        return ans;
+    }
+};
