@@ -1,0 +1,9 @@
+vector<vector<int>>& intervals
+sort(intervals.begin(),intervals.end()); //以vector<int,int> 的第一個int大小作排序
+
+若要以vector<int,int>的第二個int大小作排序，需再class外定義:
+bool comp(vector<int> &a,vector<int> &b) {
+	return a[1]<b[1];
+}
+然後在使用sort
+sort(intervals.begin(),intervals.end(),comp);
