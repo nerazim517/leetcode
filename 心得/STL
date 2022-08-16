@@ -3,6 +3,7 @@ vector 也可以存各種物品，二維vector vector<vector<int> > vec有看過
 解題時先思考能不能用greedy解，在思考暴力解，再來dp優化
 min(x,y) max(x,y) sort(x.begin(),x.end()) 在解greedy時非常好用
 
+INT_MAX 指整數上界
 multiset是比較好用的priority queue
 multiset.find()可以找到目標位置
 pair<int,int>+multiset效果非常強
