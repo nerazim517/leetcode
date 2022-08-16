@@ -17,3 +17,5 @@ sort(intervals.begin(),intervals.end(),comp);
 vector<pair<int,int>> map;
 auto it = lower_bound(map.begin(), map.end(), v[1], [](auto a, int b) {return a.first < b;}); 
 //在map.begin()到map.end()找出不小於v[1]的值，與v[1]比較的是pair第一個元素
+
+由大到小排列:sort(vec.begin(),vec.end(),[](int a,int b){return a>b;});
