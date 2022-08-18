@@ -1,0 +1,42 @@
+class Solution {
+public:
+    class casual
+    {
+        public:
+            casual(){cout<<"in casual";};
+    };
+    class student
+    {
+        public:
+            student(string n){cout<<"父";name = n;};
+            student(string n,string g){cout<<"父";name = n;gender = g;};
+            void putname(){cout<<name;};
+            void putgender(){cout<<gender;};
+            int grade = 95;
+        private:
+            string name;
+            string gender;
+    };
+    class copy:public student   //copy會繼承所有student的東西，設置為public，則原本性質不變(public->public,protected->protected,private->private)
+    {                           //設置為protected，則(public->protected,protected->protected,private->private)
+        public:                 //設置為private，則(public->private,protected->private,private->private)
+            copy(string n):student(n){};     //子建構函數一定要手動繼承，要加大括號，而且大括號要留白，注意只能使用父的建構函數!
+            copy(string n,string n2):student(n,n2){};
+    };
+    class copycopy:public casual
+    {
+        public:
+            copycopy():casual(){};
+    };
+    double findMedianSortedArrays(vector<int>& nums1, vector<int>& nums2) {
+        double ans = 0;
+        student s("lucy");
+        copy ss("ryan");
+        copy sss("tom","male");
+        ss.putname();
+        sss.putname();
+        sss.putgender();
+        copycopy t;
+        return ans;
+    }
+};
