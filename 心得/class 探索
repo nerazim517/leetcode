@@ -10,6 +10,7 @@ public:
         public:
             student(string n){cout<<"父";name = n;};
             student(string n,string g){cout<<"父";name = n;gender = g;};
+            student(){};
             void putname(){cout<<name;};
             void putgender(){cout<<gender;};
             int grade = 95;
@@ -22,6 +23,8 @@ public:
         public:                 //設置為private，則(public->private,protected->private,private->private)
             copy(string n):student(n){};     //子建構函數一定要手動繼承，要加大括號，而且大括號要留白，注意只能使用父的建構函數!
             copy(string n,string n2):student(n,n2){};
+            copy(){}; //再次驗證只能使用父的建構函數!
+            int height;
     };
     class copycopy:public casual
     {
@@ -34,6 +37,7 @@ public:
         copy ss("ryan");
         copy sss("tom","male");
         ss.putname();
+        ss.height = 170;
         sss.putname();
         sss.putgender();
         copycopy t;
