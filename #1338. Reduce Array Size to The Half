@@ -1,0 +1,24 @@
+class Solution {
+public:
+    int minSetSize(vector<int>& arr) {
+        int ans = 0;
+        vector<int> vec(pow(10,5)+1);
+        for(int i:arr)
+        {
+            vec[i]++;
+        }
+        sort(vec.begin(),vec.end(),[](int a,int b){return a>b;});
+        int n = arr.size();
+        if(n%2!=0)
+            n++;
+        n/=2;
+        int sum = 0;
+        int i = 0;
+        while(sum<n)
+        {
+            sum+=vec[i++];
+            ans++;
+        }
+        return ans;
+    }
+};
