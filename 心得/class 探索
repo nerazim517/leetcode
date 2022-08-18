@@ -44,3 +44,6 @@ public:
         return ans;
     }
 };
+//////////////////////////////////////////////////////////////////////////////
+建構式也可以用繼承的:
+student(string n,string g,int grad,int h,int w):name(n),gender(g),height(h),weight(w),grade(grad){};
