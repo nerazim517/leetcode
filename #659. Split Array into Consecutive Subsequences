@@ -1,4 +1,4 @@
-class Solution {
+class Solution { //先check能不能加入pair，不行的話check能否建立pair，不行則回傳false;
 public:
     bool isPossible(vector<int>& nums) {
         if(nums.size()<3)
