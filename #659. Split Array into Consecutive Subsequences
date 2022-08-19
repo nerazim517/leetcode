@@ -1,0 +1,116 @@
+class Solution {
+public:
+    bool isPossible(vector<int>& nums) {
+        if(nums.size()<3)
+            return false;
+        unordered_map <int,int> mp;
+        for(int i:nums)
+            mp[i]++;
+        int l = nums[0];
+        int r = nums[nums.size()-1];
+        vector<pair<int,int>> vec;
+        for(int i=l;i<=r-2;i++)
+        {
+            bool b = false;
+            
+            while(mp[i]!=0)
+            {   
+                bool c = false;
+                if(!b)
+                {
+                    for(int j=0;j<vec.size();j++)
+                    {   
+                        if(vec[j].second==i-1)
+                        {   
+                            
+                            vec[j].second++;
+                            mp[i]--;
+                            c = true;
+                            break;
+                        }
+                    }
+                    if(c==false)
+                        b = true;
+                }
+                if(b)
+                {
+                    while(mp[i]!=0)
+                    {
+                        if((mp[i+1]!=0)&&(mp[i+2]!=0))
+                        {
+                            mp[i]--;
+                            mp[i+1]--;
+                            mp[i+2]--;
+                            pair<int,int> p;
+                            p.first = i;
+                            p.second = i+2;
+                            vec.push_back(p);
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                    }
+                }
+            }
+            
+            while(mp[i]!=0)
+            {
+                if((mp[i+1]!=0)&&(mp[i+2]!=0))
+                {
+                    mp[i]--;
+                    mp[i+1]--;
+                    mp[i+2]--;
+                    pair<int,int> p;
+                    p.first = i;
+                    p.second = i+2;
+                    vec.push_back(p);
+                }
+                else
+                {
+                    return false;
+                }
+            }
+
+        }
+        while(mp[r-1]!=0)
+        {   
+            bool b = false;
+            for(int i=0;i<vec.size();i++)
+            {   
+                if(vec[i].second==r-2)
+                {
+                    vec[i].second++;
+                    mp[r-1]--;
+                    b = true;
+                    if(mp[r-1]==0)
+                        break;
+                }
+            }
+            if(!b)
+                return false;
+        }
+        
+       
+        while(mp[r]!=0)
+        {
+            bool b = false;
+            for(int i=0;i<vec.size();i++)
+            {   
+                if(vec[i].second==r-1)
+                {
+                    vec[i].second++;
+                    mp[r]--;
+                    b = true;
+                    if(mp[r]==0)
+                        break;
+                }
+                
+            }
+            if(!b)
+                return false;
+        }
+        return true;
+
+    }
+};
