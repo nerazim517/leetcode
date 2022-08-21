@@ -1,0 +1,154 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    bool f = false;
+    TreeNode* o;
+    TreeNode* deleteNode(TreeNode* root, int key) {
+        if((root==NULL)||((root->val==key)&&(root->right==NULL)&&(root->left==NULL)))
+            return {};
+        TreeNode* dummy = new TreeNode;
+        o = dummy;
+        dummy->left = root;
+        
+        dfs(root,dummy,key,0);
+        
+        return dummy->left;
+    }
+    
+    void dfs(TreeNode* curr,TreeNode* prev,int key,int d) //d0左 d1右
+    {
+        
+        if((curr->val!=key)&&((curr->right==NULL)&&(curr->left==NULL)))
+            return;
+        if(curr->val==key)
+        {
+            if(curr->left!=NULL)
+            {
+                if(d==0)
+                {
+                    prev->left=curr->left;
+                    if(curr->right!=NULL)
+                    {
+                        if(prev->left->right==NULL)
+                            prev->left->right = curr->right;
+                        else
+                        {
+                            cout<<curr->right->val;
+                            find(o->left,curr->right);
+                        }
+                    }
+                    return;
+                }
+                else
+                {
+                    prev->right=curr->left;
+                    if(curr->right!=NULL)    
+                    {   
+                        if(prev->right->right==NULL)
+                            prev->right->right = curr->right;
+                        else
+                        {
+                            find(o->left,curr->right);
+                        }
+                    }
+                    return;
+                }
+            }
+            else if(curr->right!=NULL)
+            {
+                if(d==0)
+                {
+                    prev->left=curr->right;
+                    if(curr->left!=NULL)
+                    {
+                        if(prev->left->left==NULL)
+                            prev->left->left = curr->left;
+                        else
+                        {
+                            find(o->left,curr->left);
+                        }
+                    }
+                    return;
+                }
+                else
+                {
+                    prev->right=curr->right;
+                    if(curr->left!=NULL)
+                    {
+                        if(prev->right->left==NULL)
+                            prev->right->left = curr->left;
+                        else
+                        {
+                            find(o->left,curr->left);
+                        }
+                    }
+                        
+                    return;
+                }
+            }
+            else if((curr->left==NULL)&&(curr->right==NULL))
+            {
+                if(d==0)
+                {
+                    prev->left = NULL;
+                    return;
+                }
+                else
+                {
+                    prev->right = NULL;
+                    return;
+                }
+            }
+            return;
+        }
+        else
+        {
+            if(curr->left!=NULL)
+                dfs(curr->left,curr,key,0);
+            if(curr->right!=NULL)
+                dfs(curr->right,curr,key,1);
+        }
+          
+    }
+    void find(TreeNode* root,TreeNode* t)
+    {
+        
+        if(f)
+            return;
+        if(root->right==NULL)
+        {
+            if(t->val>root->val)
+            {
+                cout<<t->val<<root->val;
+                root->right = t;
+                f = true;
+            }
+        }
+        else if(root->left==NULL)
+        {   
+            
+            if(t->val<root->val)
+            {
+                cout<<t->val<<root->val;
+                root->left = t;
+                f = true;
+            }
+        }
+        
+        if((root->right!=NULL)&&(t->val>root->val))
+            find(root->right,t);
+        if((root->left!=NULL)&&(t->val<root->val))
+            find(root->left,t);
+    
+    }
+};
