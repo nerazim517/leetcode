@@ -1,0 +1,76 @@
+class Solution {
+public:
+    int compress(vector<char>& chars) {
+        char c = chars[0];
+        int count = 1;
+        for(auto it = chars.begin()+1;it!=chars.end();it++)
+        {
+            if(*it==c)
+            {
+                if(count!=0)
+                {
+                    chars.erase(it);
+                    it--;
+                }
+                count++;
+            }
+            else if(*it!=c)
+            {
+                c = *it;
+                if(count<10)
+                {
+                    if(count>1)
+                        chars.insert(it,char(count+int('0')));
+                    else
+                    {
+                        it--;
+                    }
+                }
+                else if(count>=10)
+                {
+                    stack<char> s;
+                    while(count>0)
+                    {
+                        int u = count%10;
+                        count/=10;
+                        s.push(char(u+int('0')));
+                    }
+                    
+                    while(!s.empty())
+                    {
+                        chars.insert(it,s.top());
+                        s.pop();
+                        it++;
+                    }
+                    it--;
+                }
+                
+                count = 0;
+            }
+        }
+        if(count<10)
+        {
+            if(count>1)
+                chars.push_back(char(count+int('0')));
+        }
+        else if(count>=10)
+        {
+            stack<char> s;
+            while(count>0)
+            {
+                int u = count%10;
+                count/=10;
+                s.push(char(u+int('0')));
+            }
+                    
+            while(!s.empty())
+            {
+                chars.push_back(s.top());
+                s.pop();
+            }   
+        }
+        
+        
+        return chars.size();
+    }
+};
