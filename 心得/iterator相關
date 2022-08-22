@@ -1,0 +1,5 @@
+令
+vector<int> vec = {1,2,3,4,5,6,7};
+auto it = vec.begin();
+若 vec.erase(it) 則 vec = {2,3,4,5,6,7}，此時it在2上面，要做it--確保2也會被check到
+若 vec.insert(it,0) 則  vec = {0,1,2,3,4,5,6,7}，此時it在0上面
