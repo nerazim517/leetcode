@@ -1,0 +1,29 @@
+class Solution {
+public:
+    vector<int> nextGreaterElements(vector<int>& nums) {
+        int s = nums.size();
+        vector<int> ans;
+        for(int i=0;i<nums.size();i++)
+        {
+            int u = s-1;
+            int j = i;
+            bool b = false;
+            while(u--)
+            {
+                j++;
+                j = j%s;
+                if(nums[j]>nums[i])
+                {   
+                    b = true;
+                    ans.push_back(nums[j]);
+                    break;
+                }
+            }
+            if(b==false)
+            {
+                ans.push_back(-1);
+            }
+        }
+        return ans;
+    }
+};
