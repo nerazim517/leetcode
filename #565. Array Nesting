@@ -1,0 +1,29 @@
+class Solution {
+public:
+    int arrayNesting(vector<int>& nums) {
+        unordered_map <int,bool> mp;
+        int ans = 0;
+        int s = nums.size();
+        for(int i=0;i<nums.size();i++)
+        {
+            if(mp[nums[i]]==true)
+            {
+                continue;
+            }
+            else
+            {
+                int j=i;
+                int a = 0;
+                while(mp[nums[j]]!=true)
+                {
+                    a++;
+                    mp[nums[j]] = true;
+                    j = nums[j];
+                }
+                ans = max(a,ans);
+            }
+        }
+        
+        return ans;
+    }
+};
