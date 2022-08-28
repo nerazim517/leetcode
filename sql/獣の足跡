@@ -12,3 +12,29 @@ from Hell
 join ElementCompatibility on Hell.element_id = ElementCompatibility.element_id
 where Hell.name = 'Graffiacane' 
 )  and Hell.grade_id= Grade.id and Grade.grade = 'Boss' and Hell.element_id = Element.id;
+////////////////////////////////////////////////////////改良寫法//////////////////////////////////////////////////////////////////////////////
+alter table Grade change name grade text;
+alter table Element change name element text;
+
+
+select Distinct Hell.id,Hell.name,Element.element,Grade.grade
+from Hell
+
+join ElementCompatibility
+
+join Grade
+on Hell.grade_id= Grade.id
+
+join Element
+on Hell.element_id = Element.id
+
+where Hell.element_id = (
+
+select ElementCompatibility.weakness_element_id 
+from Hell 
+join ElementCompatibility on Hell.element_id = ElementCompatibility.element_id
+where Hell.name = 'Graffiacane' 
+)   
+and Grade.grade = 'Boss';
+////////////////////////////////////////////////////////////////////
+https://paiza.jp/code_and_sql/challenges/cas_s_a_2001
