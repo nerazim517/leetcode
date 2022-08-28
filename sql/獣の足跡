@@ -1,0 +1,14 @@
+alter table Grade change name grade text;
+alter table Element change name element text;
+
+
+select Distinct Hell.id,Hell.name,Element.element,Grade.grade
+from Hell
+join ElementCompatibility,Element,Grade
+where Hell.element_id = (
+
+select ElementCompatibility.weakness_element_id 
+from Hell 
+join ElementCompatibility on Hell.element_id = ElementCompatibility.element_id
+where Hell.name = 'Graffiacane' 
+)  and Hell.grade_id= Grade.id and Grade.grade = 'Boss' and Hell.element_id = Element.id;
