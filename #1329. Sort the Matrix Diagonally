@@ -1,0 +1,73 @@
+class Solution {
+public:
+    vector<vector<int>> diagonalSort(vector<vector<int>>& mat) {
+        vector<int> v;
+        vector<vector<int>> ans;
+        int h = mat.size()-1;
+        int w = mat[0].size()-1;
+        if((h==0)||(w==0))
+            return mat;
+        int n0 = ((h+1)*(w+1)-min((w+1)*w,(h+1)*(h)))/min(h+1,w+1);
+        for(int i=1;i<=min(h,w);i++)
+        {
+            v.push_back(i);
+        }
+        for(int i=1;i<=n0;i++)
+        {
+            v.push_back(min(h+1,w+1));
+        }
+        for(int i=min(h,w);i>=1;i--)
+        {
+            v.push_back(i);
+        }
+        
+        int n1 = h+1+w+1-1;
+        pair<int,int> p;
+        p.first = 0; 
+        p.second = w;
+        
+        
+        int n4 = 0;
+        int n7 = 0;
+        while(n1--)
+        {
+            
+            int n2 = p.first;
+            int n3 = p.second;
+            int n5 = v[n4];
+            vector<int> n6;
+            cout<<n2<<n3<<endl;
+            while(n5--)
+            {
+                n6.push_back(mat[n2][n3]);
+                n2++;
+                n3++;
+            }
+            sort(n6.begin(),n6.end(),[](int a,int b){return a<b;});
+            n2 = p.first;
+            n3 = p.second;
+            n5 = v[n4];
+            int o = 0;
+            while(n5--)
+            {
+                mat[n2][n3] = n6[o++];
+                n2++;
+                n3++;
+            }
+            n4++;
+            
+            if(n7<w)
+            {
+                p.second = p.second-1;
+                n7++;
+            }
+            else
+            {
+                p.first = p.first+1;
+            }
+        }
+
+        
+        return mat;
+    }
+};
