@@ -8,5 +8,5 @@ multiset是比較好用的priority queue
 multiset.find()可以找到目標位置
 pair<int,int>+multiset效果非常強
 
-unordered_map<int,string> mp 可以用mp.find(x)判斷<x,string>有沒有在mp中，不用再一個一個找，非常好用
+unordered_map<int,string> mp 可以用(!mp.count(x))或(mp.count(x))判斷<x,string>有沒有在mp中，不用再一個一個找，直接看出現次數就好，非常好用
 
