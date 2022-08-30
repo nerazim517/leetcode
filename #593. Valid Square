@@ -1,0 +1,53 @@
+class Solution {
+public:
+    bool validSquare(vector<int>& p1, vector<int>& p2, vector<int>& p3, vector<int>& p4) {
+        unordered_map <int,int> mp;
+        int n0,n1,n2,n3,n4,n5;
+        n0 = pow(p1[0]-p2[0],2)+pow(p1[1]-p2[1],2);
+        if(!n0)
+            return false;
+        n1 = pow(p1[0]-p3[0],2)+pow(p1[1]-p3[1],2);
+        if(!n1)
+            return false;
+        n2 = pow(p1[0]-p4[0],2)+pow(p1[1]-p4[1],2);
+        if(!n2)
+            return false;
+        n3 = pow(p2[0]-p3[0],2)+pow(p2[1]-p3[1],2);
+        if(!n3)
+            return false;
+        n4 = pow(p2[0]-p4[0],2)+pow(p2[1]-p4[1],2);
+        if(!n4)
+            return false;
+        n5 = pow(p3[0]-p4[0],2)+pow(p3[1]-p4[1],2);
+        if(!n5)
+            return false;
+        mp[n0]++;
+        mp[n1]++;
+        mp[n2]++;
+        mp[n3]++;
+        mp[n4]++;
+        mp[n5]++;
+        int l = n0;
+        int r = 0;
+        if(n1!=l)
+            r = n1;
+        if(n2!=l)
+            r = n2;
+        if(n3!=l)
+            r = n3;
+        if(n4!=l)
+            r = n4;
+        if(n5!=l)
+            r = n5;
+        if(mp[l]==4)
+                 if(mp[r]==2)
+                    return true;
+        if(mp[r]==4)
+                 if(mp[l]==2)
+                    return true;
+        
+        
+        
+        return false;
+    }
+};
