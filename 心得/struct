@@ -1,0 +1,9 @@
+struct Dlink
+{
+    int val;
+    int key;
+    Dlink* prev;
+    Dlink* next;
+    Dlink();
+    Dlink(int key_,int val_):val(val_),key(key_),prev(nullptr),next(nullptr){} 
+};
