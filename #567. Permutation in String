@@ -1,0 +1,40 @@
+class Solution {
+public:
+    bool checkInclusion(string s1, string s2) {
+        unordered_map <char,int> mp1,mp2;
+        for(char c:s1)
+        {
+            mp1[c]++;
+        }
+        
+        for(char c = 'a';c<='z';c++)
+        {
+            cout<<c<<mp1[c]<<endl;
+        }  
+        
+        int l = 0;
+        for(int i=0;i<s2.size();i++)
+        {
+             
+            l++;
+            mp2[s2[i]]++;
+            if(l>s1.size())
+            {
+                       
+                mp2[s2[i-s1.size()]]--;
+                l--;
+            }
+        
+            for(char c = 'a';c<='z';c++)
+            {
+                if(mp1[c]!=mp2[c])
+                    break;
+                else if(c=='z')
+                    if(mp1[c]==mp2[c])
+                        return true;
+            } 
+        }
+        
+        return false;
+    }
+};
