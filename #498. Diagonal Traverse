@@ -1,0 +1,109 @@
+class Solution {
+public:
+    vector<int> findDiagonalOrder(vector<vector<int>>& mat) {
+        pair<int,int> upstart,downstart;
+        vector<int> ans;
+        upstart.first = 2;
+        upstart.second = 0;
+        downstart.first = 0;
+        downstart.second = 1;
+        int col = mat[0].size();
+        int row = mat.size();
+        int time = col+row-1;
+        bool direct = false; //true up false down
+
+        vector<int> vec;
+        for(int i=1;i<min(row,col);i++)
+        {
+            vec.push_back(i);
+        }
+        
+        if(col>row)
+        {
+            int t = col-(row-1);
+        
+            while(t--)
+            {
+                vec.push_back(row);
+            }
+        }
+        else
+        {
+            int t = row-(col-1);
+        
+            while(t--)
+            {
+                vec.push_back(col);
+            }
+        }
+        
+        
+        for(int i=min(col,row)-1;i>=1;i--)
+        {
+            vec.push_back(i);
+        }
+        
+        
+        
+        
+        int z = 1;
+        while(time)
+        {
+           
+            if(time==col+row-1)
+                ans.push_back(mat[0][0]);
+            else
+            {
+                if(!direct)
+                {
+                    if(downstart.second>col-1)
+                    {
+                        downstart.first+=downstart.second-(col-1);
+                        downstart.second = col-1;
+                    }
+                    int n1 = downstart.first;
+                    int n2 = downstart.second;
+                    int h = vec[z];
+                    z++;
+                    while(h--)
+                    {
+                        
+                        ans.push_back(mat[n1][n2]);
+                        n1++;
+                        n2--;
+                    }
+                    
+                    downstart.second+=2;
+                    direct = true;
+                }
+                else
+                {
+                    
+                    if(upstart.first>row-1)
+                    {
+                        upstart.second+=upstart.first-(row-1);
+                        upstart.first = row-1;
+                    }
+                    int n1 = upstart.first;
+                    int n2 = upstart.second;
+                    int h = vec[z];
+                    z++;
+                    while(h--)
+                    {
+                        
+                        ans.push_back(mat[n1][n2]);
+                        n1--;
+                        n2++;
+                    }
+                    upstart.first+=2;
+                    direct = false;
+                }
+                
+            }         
+            time--;
+            
+        }
+        
+        return ans;
+    }
+};
