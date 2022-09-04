@@ -1,0 +1,48 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    unordered_map <int,multiset<pair<int,int>>> column;
+    int left = INT_MAX;
+    int right =INT_MIN;
+    vector<vector<int>> verticalTraversal(TreeNode* root) {
+        dfs(root,0,0);
+        vector<vector<int>> ans;
+        for(int i = left;i<=right;i++)
+        {
+            vector<int> vec;
+            for(auto it = column[i].begin();it!=column[i].end();it++)
+            {
+                vec.push_back((*it).second);
+            }
+            
+            ans.push_back(vec);
+        }
+        return ans;
+    }
+    void dfs(TreeNode* root,int ro,int col)
+    {
+        if(root==NULL)
+            return;
+        else
+        {
+            left = min(left,col);
+            right = max(right,col);
+            pair <int,int> p;
+            p.first = ro;
+            p.second = root->val;
+            column[col].insert(p);
+            dfs(root->right,ro+1,col+1);
+            dfs(root->left,ro+1,col-1);
+        }
+    }
+};
