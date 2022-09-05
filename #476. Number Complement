@@ -1,0 +1,33 @@
+class Solution {
+public:
+    int findComplement(int num) {
+        queue<int> q;
+        while(num>0)
+        {
+            if(num%2!=0)
+                q.push(1);
+            else
+                q.push(0);
+            num/=2;
+        }
+        long i = 1;
+        int ans=0;
+        while(!q.empty())
+        {
+            int u = q.front();
+            q.pop();
+            cout<<u;
+            if(u==1)
+            {
+                i*=2;
+                continue;
+            }
+            else
+                u=1;
+            u*=i;
+            i*=2;
+            ans+=u;
+        }
+        return ans;
+    }
+};
