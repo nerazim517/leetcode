@@ -1,0 +1,30 @@
+class Solution {
+public:
+    vector<int> constructRectangle(int area) {
+        int dis = INT_MAX;
+        vector<int> ans;
+        int n1,n2;
+        bool b = true;
+        int y= pow(area,0.5);
+        for(long i =y;i<=area;i++)
+        {
+            for(long j = 1;j<=i;j++)
+            {
+                if(i*j>pow(10,7))
+                    break;
+                if(i*j==area)
+                {
+                    if(i-j<dis)
+                    {
+                        n1 = i;
+                        n2 = j;
+                        dis = i-j;
+                    }
+                }
+            }
+        }
+        ans.push_back(n1);
+        ans.push_back(n2);
+        return ans;
+    }
+};
