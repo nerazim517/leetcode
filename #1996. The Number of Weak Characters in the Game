@@ -1,0 +1,42 @@
+class Solution { 
+public:
+    int numberOfWeakCharacters(vector<vector<int>>& properties) {
+        int ans = 0;
+        
+        /*sort(properties.begin(),properties.end(),[](vector<int> a,vector<int> b){
+            if(a[0]!=b[0])
+            {
+                return a[0]<b[0];
+            }
+            return a[1]<b[1];
+        });*///用custom sort會大幅增加時間->導致TLE
+        sort(properties.begin(),properties.end());
+        
+        int m = properties[properties.size()-1][0];
+        int n = properties[properties.size()-1][1];
+        for(int i=properties.size()-2;i>=0;i--)
+        {
+            if(n>properties[i][1])
+            {
+                if(m!=properties[i][0])
+                    ans++;
+            }
+            else if(n<properties[i][1])
+            {
+                int j;
+                for(j=i;j>=0;j--)
+                {
+                    if(properties[j][0]!=properties[i][0])
+                        break;
+                    if(n>properties[j][1])
+                        ans++;
+                }
+                n = properties[i][1];
+                m = properties[i][0];
+                i = j+1;
+            }
+        }
+ 
+        return ans;
+    }
+};
