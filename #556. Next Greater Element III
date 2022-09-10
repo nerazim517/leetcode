@@ -1,0 +1,78 @@
+class Solution {
+public:
+    int nextGreaterElement(int n) {
+        long ans= 0;
+        string num ="";
+        stack<char> s;
+        while(n>0)
+        {
+            s.push(char(n%10+int('0')));
+            n/=10;
+        }
+        while(!s.empty())
+        {
+            num+=s.top();
+            s.pop();
+        }
+        unordered_map <int,bool> mp;
+        int last = -1;
+        for(int i=0;i<num.size();i++)
+        {
+            for(int j=i+1;j<num.size();j++)
+            {
+                if(num[i]<num[j])
+                {
+                    mp[i] = true;
+                    last = i;
+                    break;
+                }
+            }
+        }
+        if(last==-1)
+            return -1;
+        char copy = num[last];
+        char n1 = char(int('9')+1);
+        int index;
+        for(int i=last;i<num.size();i++)
+        {
+            if(num[last]<num[i])
+            {
+                if(n1>num[i])
+                {
+                    n1 = num[i];
+                    index = i;
+                }  
+            }
+        }
+        
+        swap(num[last],num[index]);
+        
+        vector<char> vec;
+        for(int i = last+1;i<num.size();i++)
+        {
+            vec.push_back(num[i]);
+        }
+        sort(vec.begin(),vec.end(),[](char a,char b){return a<b;});
+        int y = 0;
+        for(int i=last+1;i<num.size();i++)
+        {
+            num[i] = vec[y++]; 
+        }
+        stack<int> s0;
+        for(char c:num)
+        {
+            s0.push(int(int(c)-int('0')));
+            cout<<c;
+        }
+        long q = 1;
+        while(!s0.empty())
+        {
+            ans+=s0.top()*q;
+            q*=10;
+            s0.pop();
+        }
+        if(ans>=pow(2,31))
+            return -1;
+        return ans;
+    }
+};
