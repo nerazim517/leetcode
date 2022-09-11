@@ -1,0 +1,48 @@
+class Solution {
+public:
+    vector<vector<int>> reconstructMatrix(int upper, int lower, vector<int>& colsum) {
+        vector<vector<int>> ans(1,vector<int>(colsum.size()));
+        int c = 0;
+        for(int i:colsum)
+        {
+            if(i>2)
+                return {};
+            if(i!=0)
+                c++;
+        }
+        if(c<upper)
+            return {};
+        for(int i=0;i<colsum.size();i++)
+        {
+            if(colsum[i]==2)
+            {
+                ans[0][i] = 1;
+                colsum[i]--;
+                upper--;
+            }
+        }
+        if(upper<0)
+            return {};
+        while(upper)
+        {
+            int i = rand()%colsum.size();
+            if((ans[0][i]==0)&&(colsum[i]==1))
+            {
+                ans[0][i] = 1;
+                upper--;
+                colsum[i]--;
+                if(colsum[i]>1)
+                    return{};
+            }
+        }
+        int sum =0;
+        for(int i:colsum)
+        {
+            sum+=i;
+        }
+        if(sum!=lower)
+            return{};
+        ans.push_back(colsum);
+        return ans;
+    }
+};
