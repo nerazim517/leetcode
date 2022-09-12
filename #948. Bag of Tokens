@@ -1,0 +1,38 @@
+class Solution {
+public:
+    int ans = 0;
+    vector<int> token;
+    int bagOfTokensScore(vector<int>& tokens, int power) {
+        if(tokens.size()==1)
+            if(power>tokens[0])
+                return 1;
+        sort(tokens.begin(),tokens.end(),[](int a,int b){return a<b;});
+        token = tokens;
+        int l = 0;
+        int r = tokens.size()-1;
+        int score = 0;
+        while((l<r))
+        {
+            
+            UpdateAns(l,power);
+            if(power<tokens[l])
+                break;
+            
+            power-=tokens[l++];
+            power+=tokens[r--];
+        }
+        return ans;
+    }
+    void UpdateAns(int l,int power)
+    {
+        int count =0;
+        while((l<token.size())&&(power>=token[l]))
+        {
+            power-=token[l];
+            l++;
+            count++;    
+        }
+        
+        ans = max(ans,count);
+    }
+};
