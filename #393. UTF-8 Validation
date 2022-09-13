@@ -1,0 +1,57 @@
+class Solution {
+public:
+    bool validUtf8(vector<int>& data) {
+        data.push_back(0);
+        data.push_back(0);
+        data.push_back(0);
+        for(int i=0;i<data.size();i++)
+        {
+            if(((data[i]>=248)||(data[i]<0))||((128<=data[i])&&(data[i]<192)))
+                return false;
+            if(data[i]<128)
+                continue;
+            else if((192<=data[i])&&(data[i]<224))
+            {
+                if(!((128<=data[i+1])&&(data[i+1]<192)))
+                {
+                    return false;
+                }
+                else
+                {
+                    i++;
+                }
+            }
+            else if((224<=data[i])&&(data[i]<240))
+            {
+                int time = 2;
+                while(time--)
+                {
+                    if(!((128<=data[i+1])&&(data[i+1]<192)))
+                    {
+                        return false;
+                    }
+                    else
+                    {
+                        i++;
+                    }
+                }
+            }
+            else if((240<=data[i])&&(data[i]<248))
+            {
+                int time = 3;
+                while(time--)
+                {
+                    if(!((128<=data[i+1])&&(data[i+1]<192)))
+                    {
+                        return false;
+                    }
+                    else
+                    {
+                        i++;
+                    }
+                }
+            }
+        }
+        return true;
+    }
+};
