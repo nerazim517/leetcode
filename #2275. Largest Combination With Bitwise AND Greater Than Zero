@@ -1,0 +1,22 @@
+class Solution {
+public:
+    int largestCombination(vector<int>& candidates) {
+        int c = 1;
+        int count = 24;
+        int ans = 0;
+        while(count--)
+        {   
+            int z = 0;
+            for(int i:candidates)
+            {
+                if(int(i^c)==i-c)
+                {
+                    z++;
+                }
+            }
+            c*=2;
+            ans = max(ans,z);
+        }
+        return ans;
+    }
+};
