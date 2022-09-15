@@ -1,0 +1,55 @@
+class Solution {
+public:
+    vector<int> findOriginalArray(vector<int>& changed) {
+        sort(changed.begin(),changed.end());
+        if(changed.size()%2!=0)
+            return {};
+        unordered_map <int,int> mp;
+        vector<int> ans;
+        int count = 0;
+        int zero = 0;
+        for(int i:changed)
+        {   
+            if(i==0)
+            { 
+                zero++;
+                continue;
+            }
+            if(mp[i*2]!=0)
+            {
+                
+                mp[i*2]--;
+                count++;
+                ans.push_back(i);
+            }
+            else if((i%2==0)&&(mp[i/2]!=0))
+            {
+                
+                mp[i/2]--;
+                ans.push_back(i/2);
+                count++;
+            }
+            else
+                mp[i]++;
+         
+        }
+        
+        if(zero%2==0)
+            count+=zero/2;
+        if(count==changed.size()/2)
+        {
+            if(zero%2==0)
+            {
+                int y = zero/2;
+                cout<<y;
+                while(y--)
+                {
+                    ans.push_back(0);    
+                }
+                return ans;
+            }
+        }
+        
+        return {};
+    }
+};
