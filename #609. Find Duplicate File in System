@@ -1,0 +1,56 @@
+class Solution {
+public:
+    vector<vector<string>> findDuplicate(vector<string>& paths) {
+        unordered_map <string,vector<string>> mp;
+        unordered_map <string,int> mp2;
+        vector<string> vec;
+        vector<vector<string>> ans;
+        for(int i=0;i<paths.size();i++)
+        {
+            int y = 0;
+            string pre = "";
+            while(paths[i][y]!=' ')
+            {
+                pre+=paths[i][y++];
+            }
+            for(int j=0;j<paths[i].size();j++)
+            {
+                if(paths[i][j]==' ')
+                {
+                    j++;
+                    string pree = pre;
+                    pree+='/';
+                    while(paths[i][j]!='(')
+                    {
+                        pree+=paths[i][j++];
+                    }
+                    j++;
+                    string txt = "";
+                    while(paths[i][j]!=')')
+                    {
+                        txt+=paths[i][j++];
+                    }
+                    if(mp[txt].size()==0)
+                    {
+                        vec.push_back(txt);
+                    }
+                    mp2[txt]++;
+                    mp[txt].push_back(pree);
+                }
+            }
+        }
+        
+        for(int i=0;i<vec.size();i++)
+        {
+            if(mp2[vec[i]]<=1)
+                continue;
+            ans.push_back(mp[vec[i]]);
+            for(int j=0;j<mp[vec[i]].size();j++)
+            {
+                cout<<mp[vec[i]][j];
+            }
+            cout<<endl;
+        }
+        return ans;
+    }
+};
