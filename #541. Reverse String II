@@ -1,0 +1,30 @@
+class Solution {
+public:
+    string reverseStr(string s, int k) {
+        string ans;
+        int ss = s.size();
+        for(int i=0;i<s.size();i++)
+        {
+            int z = min(ss,i+k);
+            int k1=k;
+            int k0 = z-i;
+            while(k0--)
+            {
+                ans+=s[z-1];
+                i++;
+                z--;
+            }
+            while(k1--)
+            {
+                if(i==s.size())
+                    return ans;
+                else
+                {
+                    ans+=s[i++];
+                }
+            }
+            i--;
+        }
+        return ans;
+    }
+};
